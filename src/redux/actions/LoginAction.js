@@ -15,12 +15,18 @@ export function LoginFail(error) {
   };
 }
 export const LoginAction = (email, password) => {
+
   return async (dispatch) => {
     try {
       const response = await LoginService(email, password);
-      console.log(response.data.data);
       
-      dispatch(LoginSuccess(response.data));
+      localStorage.setItem("accessToken", response.data.data.accessToken);
+      localStorage.setItem("name", response.data.data.name);
+
+      console.log(response.data.data);
+      window.location.href = "/dashboard";
+      
+      dispatch(LoginSuccess(response.data.data));
     } catch (error) {
       const errorMsg =
         error.response?.data?.message || "An error occurred. Please try again.";

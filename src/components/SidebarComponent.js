@@ -30,7 +30,6 @@ const SidebarComponent = () => {
           {isOpen ? '☰' : '❯'}
         </button>
         <ul className="space-y-6">
-
           {/* Users Dropdown */}
           <li>
             <a
@@ -189,6 +188,26 @@ const SidebarComponent = () => {
                 <a href="#" className="text-gray-600 hover:text-gray-900">Delete Payment</a>
               </li>
             </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div className="absolute bottom-4 left-0 w-64 px-4">
+        <ul className="space-y-4">
+          {/* Profile */}
+          <li className="flex items-center space-x-2 p-2 rounded-md cursor-pointer hover:text-gray-900 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-3.31 0-6 2.69-6 6v1h12v-1c0-3.31-2.69-6-6-6z" />
+            </svg>
+            <span className={`${!isOpen ? 'hidden' : ''}`}>Profile</span>
+          </li>
+
+          <li className="flex items-center space-x-2 p-2 rounded-md cursor-pointer hover:text-gray-900 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M10 17l5-5-5-5v3h-4v4h4z" />
+              <path d="M21 12l-4-4v3h-7v2h7v3l4-4z" />
+            </svg>
+            <span className={`${!isOpen ? 'hidden' : ''}`}>Logout</span>
           </li>
         </ul>
       </div>
