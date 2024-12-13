@@ -13,11 +13,15 @@ import {
 } from '@heroicons/react/24/outline';
 
 const SidebarComponent = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [dropdown, setDropdown] = useState(null); 
 
   const toggleDropdown = (section) => {
-    setDropdown(dropdown === section ? null : section);
+    if (!isOpen) {
+      setDropdown(null); 
+    } else {
+      setDropdown(dropdown === section ? null : section);
+    }
   };
 
   return (
@@ -25,7 +29,10 @@ const SidebarComponent = () => {
       <div className="flex flex-col items-start p-4">
         <button
           className="p-2 mb-4 text-xl text-gray-500 lg:block hidden"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => {
+            setIsOpen(!isOpen);
+            if (!isOpen) setDropdown(null); // Close dropdown when sidebar closes
+          }}
         >
           {isOpen ? '☰' : '❯'}
         </button>
