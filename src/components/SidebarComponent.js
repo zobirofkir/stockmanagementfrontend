@@ -211,7 +211,7 @@ const SidebarComponent = () => {
 
         {/* Profile and Logout Links at the bottom */}
         <div className="mt-auto space-y-2 flex flex-col top-0 bottom-0 h-full">
-          <a href="#" className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors">
+          <a href="/dashboard/users/profile" className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors">
             <UserCircleIcon className="h-5 w-5 text-gray-600" />
             <span className={`${!isOpen ? 'hidden' : ''}`}>Profile</span>
           </a>
