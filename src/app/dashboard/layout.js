@@ -7,6 +7,11 @@ import { useState } from "react";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const handleSidebarClose = (e) => {
+    e.stopPropagation();
+    setSidebarOpen(false);
+  };
+
   return (
     <>
       <button 
@@ -19,13 +24,17 @@ export default function DashboardLayout({ children }) {
       <div className="flex h-screen bg-gray-100">
 
         {/* Mobile Sidebar */}
-        <aside className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-50 z-50 transition-opacity ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
-          onClick={() => setSidebarOpen(false)}
+        <aside 
+          className={`lg:hidden fixed inset-0 bg-gray-800 bg-opacity-50 z-50 transition-opacity ${sidebarOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`} 
+          onClick={() => setSidebarOpen(false)} 
         >
-          <div className="w-64 bg-white h-full relative">
+          <div 
+            className="w-full flex flex-col justify-center bg-gray-100  h-full relative"
+            onClick={(e) => e.stopPropagation()} 
+          >
             <button
               className="absolute top-4 right-4 p-2 text-gray-500"
-              onClick={() => setSidebarOpen(false)}
+              onClick={handleSidebarClose} 
             >
               <XMarkIcon className="h-6 w-6" />
             </button>
@@ -34,7 +43,7 @@ export default function DashboardLayout({ children }) {
         </aside>
 
         {/* Desktop Sidebar */}
-        <aside className={`lg:block ${sidebarOpen ? 'block' : 'hidden'} lg:block transition-all ease-in-out duration-300`}>
+        <aside className={`lg:block ${sidebarOpen ? 'block' : 'hidden'} lg:block  transition-all ease-in-out duration-300`}>
           <SidebarComponent />
         </aside>
 

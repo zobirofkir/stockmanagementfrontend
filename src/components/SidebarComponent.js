@@ -9,33 +9,35 @@ import {
   CreditCardIcon,
   PlusIcon,
   PencilIcon,
-  TrashIcon
+  TrashIcon,
+  HomeIcon,
+  UserCircleIcon,
+  ArrowRightOnRectangleIcon // Added logout icon
 } from '@heroicons/react/24/outline';
 
 const SidebarComponent = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [dropdown, setDropdown] = useState(null); 
 
   const toggleDropdown = (section) => {
-    if (!isOpen) {
-      setDropdown(null); 
-    } else {
-      setDropdown(dropdown === section ? null : section);
-    }
+    setDropdown(dropdown === section ? null : section);
   };
 
   return (
     <div className={`bg-gray-100 text-gray-800 h-full ${isOpen ? 'w-76' : 'w-20'} transition-all duration-300 ease-in-out`}>
-      <div className="flex flex-col items-start p-4">
+      <div className="flex flex-col items-start p-4 ">
         <button
           className="p-2 mb-4 text-xl text-gray-500 lg:block hidden"
-          onClick={() => {
-            setIsOpen(!isOpen);
-            if (!isOpen) setDropdown(null); // Close dropdown when sidebar closes
-          }}
+          onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? '☰' : '❯'}
         </button>
+
+        <a className={`text-xl font-medium text-black mb-6 ${!isOpen && 'hidden'} flex items-center gap-2 mt-20 md:mt-2`} href='/dashboard'>
+          <HomeIcon className="h-5 w-5 text-gray-600" />
+          Dashboard
+        </a>
+
         <ul className="space-y-6 mt-10">
           {/* Users Dropdown */}
           <li>
@@ -197,9 +199,21 @@ const SidebarComponent = () => {
             </ul>
           </li>
         </ul>
+
+        {/* Profile and Logout Links at the bottom */}
+        <div className="mt-auto space-y-2 flex flex-col top-0 bottom-0 h-full">
+          <a href="#" className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors">
+            <UserCircleIcon className="h-5 w-5 text-gray-600" />
+            <span className={`${!isOpen ? 'hidden' : ''}`}>Profile</span>
+          </a>
+          <a href="#" className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors">
+            <ArrowRightOnRectangleIcon className="h-5 w-5 text-gray-600" />
+            <span className={`${!isOpen ? 'hidden' : ''}`}>Logout</span>
+          </a>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default SidebarComponent;
