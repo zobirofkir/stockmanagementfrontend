@@ -1,5 +1,6 @@
 "use client";
 
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const ProfilePage = () => {
@@ -28,7 +29,9 @@ const ProfilePage = () => {
 
         <div className="flex justify-center mb-6">
           <label htmlFor="profileImage" className="relative cursor-pointer">
-            <img
+            <Image
+              width={150}
+              height={150}
               src={
                 profileImage ||
                 'https://via.placeholder.com/150?text=Profile+Image'
