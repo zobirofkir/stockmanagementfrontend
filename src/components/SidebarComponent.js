@@ -12,12 +12,21 @@ import {
   TrashIcon,
   HomeIcon,
   UserCircleIcon,
-  ArrowRightOnRectangleIcon // Added logout icon
+  ArrowRightOnRectangleIcon 
 } from '@heroicons/react/24/outline';
+import { useDispatch, useSelector } from 'react-redux';
+import { LogoutAction } from '@/redux/actions/LogoutAction';
 
 const SidebarComponent = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [dropdown, setDropdown] = useState(null); 
+
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.login);  
+  
+  const handleLogout = () => {
+    dispatch(LogoutAction());
+  };
 
   const toggleDropdown = (section) => {
     setDropdown(dropdown === section ? null : section);
@@ -206,10 +215,10 @@ const SidebarComponent = () => {
             <UserCircleIcon className="h-5 w-5 text-gray-600" />
             <span className={`${!isOpen ? 'hidden' : ''}`}>Profile</span>
           </a>
-          <a href="#" className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors">
+          <button className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors" onClick={handleLogout}>
             <ArrowRightOnRectangleIcon className="h-5 w-5 text-gray-600" />
-            <span className={`${!isOpen ? 'hidden' : ''}`}>Logout</span>
-          </a>
+            <span className={`${!isOpen ? 'hidden' : ''}`} >Logout</span>
+          </button>
         </div>
       </div>
     </div>
