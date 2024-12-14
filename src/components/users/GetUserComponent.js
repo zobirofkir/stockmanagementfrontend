@@ -1,7 +1,7 @@
+import Image from 'next/image';
 import React from 'react';
 
 const GetUserComponent = () => {
-  // Sample data (replace with real data from your API)
   const users = [
     { id: 1, name: 'John Doe', email: 'johndoe@example.com', role: 'Admin', image: 'https://via.placeholder.com/50' },
     { id: 2, name: 'Jane Smith', email: 'janesmith@example.com', role: 'User', image: 'https://via.placeholder.com/50' },
@@ -48,7 +48,7 @@ const GetUserComponent = () => {
         {users.map((user) => (
           <div key={user.id} className="bg-white p-4 border border-gray-300 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
-              <img src={user.image} alt={user.name} className="w-16 h-16 rounded-full object-cover mr-4" />
+              <Image width={50} height={50} src={user.image} alt={user.name} className="w-16 h-16 rounded-full object-cover mr-4" />
               <div>
                 <h2 className="text-lg font-semibold">{user.name}</h2>
                 <p className="text-sm text-gray-500">{user.email}</p>
