@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }) {
           onClick={() => setSidebarOpen(false)} 
         >
           <div 
-            className="w-full flex flex-col justify-center bg-gray-100  h-full relative"
+            className="w-[300px] flex flex-col justify-center bg-gray-100  h-full relative"
             onClick={(e) => e.stopPropagation()} 
           >
             <button
