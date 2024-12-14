@@ -1,6 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
+// Reusable component for overview cards
+const OverviewCard = ({ title, value, bgColor, textColor, valueColor }) => (
+  <motion.div
+    className={`bg-gradient-to-r ${bgColor} p-6 rounded-xl shadow-lg`}
+    initial={{ opacity: 0, y: -20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    <h3 className={`text-lg ${textColor} font-semibold`}>{title}</h3>
+    <motion.p
+      className={`text-3xl font-bold ${valueColor} mt-2`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+    >
+      {value}
+    </motion.p>
+  </motion.div>
+);
+
 const OverviewComponent = () => {
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
@@ -18,80 +38,42 @@ const OverviewComponent = () => {
 
   return (
     <div className="p-8 bg-white rounded-xl border border-gray-200">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Welcome Back {token}</h2>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 overflow-hidden">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">
+        Welcome Back, {token}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {/* User Overview */}
-        <motion.div
-          className="bg-gradient-to-r from-blue-100 to-blue-200 p-6 rounded-xl shadow-lg"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h3 className="text-lg text-blue-700 font-semibold">Users</h3>
-          <motion.p
-            className="text-3xl font-bold text-blue-800 mt-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            {userCount}
-          </motion.p>
-        </motion.div>
-
+        <OverviewCard
+          title="Users"
+          value={userCount}
+          bgColor="from-blue-100 to-blue-200"
+          textColor="text-blue-700"
+          valueColor="text-blue-800"
+        />
         {/* Product Overview */}
-        <motion.div
-          className="bg-gradient-to-r from-green-100 to-green-200 p-6 rounded-xl shadow-lg"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h3 className="text-lg text-green-700 font-semibold">Products</h3>
-          <motion.p
-            className="text-3xl font-bold text-green-800 mt-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            {productCount}
-          </motion.p>
-        </motion.div>
-
+        <OverviewCard
+          title="Products"
+          value={productCount}
+          bgColor="from-green-100 to-green-200"
+          textColor="text-green-700"
+          valueColor="text-green-800"
+        />
         {/* Order Overview */}
-        <motion.div
-          className="bg-gradient-to-r from-yellow-100 to-yellow-200 p-6 rounded-xl shadow-lg"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h3 className="text-lg text-yellow-700 font-semibold">Orders</h3>
-          <motion.p
-            className="text-3xl font-bold text-yellow-800 mt-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            {orderCount}
-          </motion.p>
-        </motion.div>
-
+        <OverviewCard
+          title="Orders"
+          value={orderCount}
+          bgColor="from-yellow-100 to-yellow-200"
+          textColor="text-yellow-700"
+          valueColor="text-yellow-800"
+        />
         {/* Payment Overview */}
-        <motion.div
-          className="bg-gradient-to-r from-purple-100 to-purple-200 p-6 rounded-xl shadow-lg"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h3 className="text-lg text-purple-700 font-semibold">Payments</h3>
-          <motion.p
-            className="text-3xl font-bold text-purple-800 mt-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            ${paymentTotal.toLocaleString()}
-          </motion.p>
-        </motion.div>
+        <OverviewCard
+          title="Payments"
+          value={`$${paymentTotal.toLocaleString()}`}
+          bgColor="from-purple-100 to-purple-200"
+          textColor="text-purple-700"
+          valueColor="text-purple-800"
+        />
       </div>
     </div>
   );

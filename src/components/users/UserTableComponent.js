@@ -19,7 +19,7 @@ const UserTableComponent = () => {
   ];
 
   return (
-    <div className="container mx-auto p-6 md:block hidden">
+    <div className="container w-full max-w-full mx-auto p-6 md:block hidden">
       <div className="overflow-x-auto">
         <table className="min-w-full table-auto border-collapse bg-white shadow-md rounded-lg">
           <thead>

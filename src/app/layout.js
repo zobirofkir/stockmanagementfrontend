@@ -1,7 +1,6 @@
 
 "use client"; 
 
-import FooterComponent from "@/components/FooterComponent";
 import { Provider } from "react-redux";
 import store from "@/redux/store/store";
 import "./globals.css";
@@ -15,9 +14,6 @@ export default function RootLayout({ children }) {
         <Provider store={store}>
           {children}
         </Provider>
-        <footer>
-          <FooterComponent />
-        </footer>
       </body>
     </html>
   );
