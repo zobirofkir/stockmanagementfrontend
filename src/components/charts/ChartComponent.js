@@ -57,14 +57,14 @@ const ChartComponent = () => {
         data: [data.users, data.orders, data.products, data.payments],
         backgroundColor: [
           "rgba(75, 192, 192, 0.2)",
-          "rgba(54, 162, 235, 0.2)", 
-          "rgba(255, 159, 64, 0.2)", 
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
           "rgba(153, 102, 255, 0.2)",
         ],
         borderColor: [
           "rgba(75, 192, 192, 1)",
           "rgba(54, 162, 235, 1)",
-          "rgba(255, 159, 64, 1)", 
+          "rgba(255, 159, 64, 1)",
           "rgba(153, 102, 255, 1)",
         ],
         borderWidth: 1,
@@ -74,6 +74,7 @@ const ChartComponent = () => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false, // Ensure the aspect ratio is maintained on all screen sizes
     plugins: {
       title: {
         display: true,
@@ -91,13 +92,15 @@ const ChartComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 md:block hidden">
+    <div className="w-full max-w-4xl mx-auto p-4 md:block">
       <div className="bg-white shadow-md rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4 text-center">
           Statistics Overview
         </h2>
         <div className="w-full mx-auto flex justify-center items-center">
-          <Bar data={chartData} options={chartOptions} />
+          <div className="w-full h-72 sm:h-96 md:h-[400px] lg:h-[500px]">
+            <Bar data={chartData} options={chartOptions} />
+          </div>
         </div>
       </div>
     </div>
