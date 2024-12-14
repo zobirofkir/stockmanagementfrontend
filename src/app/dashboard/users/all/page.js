@@ -1,3 +1,5 @@
+"use client";
+
 import GetUserComponent from '@/components/users/GetUserComponent'
 import React from 'react'
 
