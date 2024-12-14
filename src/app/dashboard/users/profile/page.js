@@ -1,11 +1,14 @@
 import ProfileComponent from '@/components/ProfileComponent'
+import ProtectedRoute from '@/protected/protectedRoute'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-       <ProfileComponent />
-    </div>
+    <ProtectedRoute>
+      <div>
+        <ProfileComponent />
+      </div>
+    </ProtectedRoute>
   )
 }
 

@@ -1,12 +1,18 @@
+"use client";
+
+import ChartComponent from "@/components/charts/ChartComponent";
+import OverviewComponent from "@/components/charts/OverviewComponent";
 import ProtectedRoute from "@/protected/protectedRoute";
 
 export default function DashboardPage() {
-return (
+
+  return (
     <ProtectedRoute>
-        <div>
-            <h1>Dashboard</h1>
-        </div>
+      <div>
+        <OverviewComponent />
+        <ChartComponent />
+      </div>
     </ProtectedRoute>
-);
+  );
 }
   

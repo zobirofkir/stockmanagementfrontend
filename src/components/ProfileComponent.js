@@ -76,75 +76,73 @@ const ProfileComponent = () => {
   };
 
   return (
-    <ProtectedRoute>
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-[600px]">
-          <h2 className="text-2xl font-bold text-gray-700 text-center mb-6">Profile Information</h2>
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-[600px]">
+        <h2 className="text-2xl font-bold text-gray-700 text-center mb-6">Profile Information</h2>
 
-          {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-          {loading && <div className="text-gray-500 text-center mb-4">Loading...</div>}
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+        {loading && <div className="text-gray-500 text-center mb-4">Loading...</div>}
 
-          {!loading && (
-            <div className="flex flex-col items-center mb-6">
-              <Image
-                width={150}
-                height={150}
-                src={profileImage || "https://via.placeholder.com/150?text=Profile+Image"}
-                alt="Profile"
-                className="w-24 h-24 rounded-full object-cover border-2 border-gray-300 mb-2"
-              />
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="text-sm text-gray-600 mb-4"
-              />
-            </div>
-          )}
-
-          <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Name</label>
+        {!loading && (
+          <div className="flex flex-col items-center mb-6">
+            <Image
+              width={150}
+              height={150}
+              src={profileImage || "https://via.placeholder.com/150?text=Profile+Image"}
+              alt="Profile"
+              className="w-24 h-24 rounded-full object-cover border-2 border-gray-300 mb-2"
+            />
             <input
-              type="text"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="text-sm text-gray-600 mb-4"
             />
           </div>
+        )}
 
-          <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Email</label>
-            <input
-              type="email"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-600 mb-1">Password</label>
-            <input
-              type="password"
-              className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
-          <div className="mt-6">
-            <button
-              className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition disabled:opacity-50"
-              onClick={handleUpdate}
-              disabled={loading}
-            >
-              {loading ? "Updating..." : "Update Profile"}
-            </button>
-          </div>
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-1">Name</label>
+          <input
+            type="text"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
-        <ToastContainer />
+
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-1">Email</label>
+          <input
+            type="email"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
-    </ProtectedRoute>
+
+        <div className="mb-4">
+          <label className="block text-gray-600 mb-1">Password</label>
+          <input
+            type="password"
+            className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-gray-500"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="mt-6">
+          <button
+            className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition disabled:opacity-50"
+            onClick={handleUpdate}
+            disabled={loading}
+          >
+            {loading ? "Updating..." : "Update Profile"}
+          </button>
+        </div>
+      </div>
+      <ToastContainer />
+      </div>
   );
 };
 

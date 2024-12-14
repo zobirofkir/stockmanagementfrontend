@@ -5,7 +5,7 @@ import FooterComponent from "@/components/FooterComponent";
 import { Provider } from "react-redux";
 import store from "@/redux/store/store";
 import "./globals.css";
-import HeadComponent from "@/components/Head/HeadComponent";
+import HeadComponent from "@/components/head/HeadComponent";
 
 export default function RootLayout({ children }) {
   return (
