@@ -71,7 +71,7 @@ const SidebarComponent = () => {
               </li>
               <li className="flex items-center space-x-2">
                 <PencilIcon className="h-5 w-5 text-gray-600" />
-                <a href="#" className="text-gray-600 hover:text-gray-900">Update User</a>
+                <a href="/dashboard/users/update" className="text-gray-600 hover:text-gray-900">Update User</a>
               </li>
               <li className="flex items-center space-x-2">
                 <TrashIcon className="h-5 w-5 text-gray-600" />

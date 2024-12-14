@@ -1,10 +1,10 @@
 "use client";
 
-import { GetUsersAction } from "@/redux/actions/users/GetUserAction";
+import { GetUsersAction } from "@/redux/actions/users/GetUsersAction";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const GetUserComponent = () => {
+const GetUsersComponent = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.getUsers);
 
@@ -73,4 +73,4 @@ const GetUserComponent = () => {
   );
 };
 
-export default GetUserComponent;
+export default GetUsersComponent;
