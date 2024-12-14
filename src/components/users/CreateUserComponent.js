@@ -32,7 +32,7 @@ const CreateUserComponent = () => {
         setImagePreview(URL.createObjectURL(file));
       };
 
-      reader.readAsDataURL(file); // Converts file to Base64
+      reader.readAsDataURL(file); 
     } else {
       setFormData((prev) => ({
         ...prev,
