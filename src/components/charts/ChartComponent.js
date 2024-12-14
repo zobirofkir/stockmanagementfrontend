@@ -91,7 +91,7 @@ const ChartComponent = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 md:block hidden">
+    <div className="w-full max-w-4xl mx-auto p-4">
       <div className="bg-white shadow-md rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4 text-center">
           Statistics Overview
