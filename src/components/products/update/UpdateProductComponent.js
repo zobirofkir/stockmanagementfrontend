@@ -5,7 +5,7 @@ const GetProductsComponent = () => {
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
       {/* Table for large screens */}
       <div className="hidden lg:block">
-        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900 mb-4">Product List</h2>
+        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900 mb-4">Update Product</h2>
         <table className="w-full text-left table-auto bg-gray-50 rounded-md shadow-sm">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
