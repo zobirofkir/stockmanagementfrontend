@@ -6,14 +6,14 @@ import { useDispatch } from "react-redux";
 
 const HeaderComponent = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const name = localStorage.getItem("name");
+  const name = localStorage.getItem("name"); 
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(LogoutAction());
     localStorage.removeItem("name"); 
     localStorage.removeItem("accessToken");
-    window.location.href = "/";
+    window.location.href = "/"; 
   };
 
   const toggleDropdown = () => {
@@ -23,7 +23,7 @@ const HeaderComponent = () => {
   return (
     <div className="flex items-center justify-between bg-white p-4 shadow-md md:px-12 px-5">
       <div className="text-gray-900 font-semibold text-xl">
-        <span className="md:block hidden">{name}</span>
+        <span className="md:block hidden">{name || "Guest"}</span>
       </div>
 
       <div className="relative">
