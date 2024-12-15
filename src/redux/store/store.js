@@ -7,6 +7,7 @@ import CreateUserReducer from "../reducers/users/CreateUserReducer";
 import GetUsersReducer from "../reducers/users/GetUsersReducer";
 import UserInfoReducer from "../reducers/users/UserInfoReducer";
 import UpdateUserReducer from "../reducers/users/UpdateUserReducer";
+import DeleteUserReducer from "../reducers/users/DeleteUserReducer";
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
     createUser : CreateUserReducer,
     getUsers : GetUsersReducer,
     userInfo : UserInfoReducer,
-    updateUser : UpdateUserReducer
+    updateUser : UpdateUserReducer,
+    deleteUser : DeleteUserReducer
     
 });
 

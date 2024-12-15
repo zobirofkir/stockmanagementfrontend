@@ -1,21 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GetUsersAction } from '@/redux/actions/users/GetUsersAction';
+import { DeleteUserAction } from '@/redux/actions/users/DeleteUserAction';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const DeleteUserComponent = () => {
   const [isClient, setIsClient] = useState(false); 
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.getUsers);
 
+  const handleDeleteUser = (id) => {
+    if (dispatch(DeleteUserAction(id))){
+      toast.success('User deleted successfully', { autoClose: 1000 });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }else{
+      toast.error('Error deleting user', { autoClose: 1000 });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
+
   useEffect(() => {
     setIsClient(true); 
     dispatch(GetUsersAction());
   }, [dispatch]);
-
-
-  const handleDeleteUser = (id) => {
-    console.log(id);
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -31,6 +44,7 @@ const DeleteUserComponent = () => {
 
   return (
     <div>
+      <ToastContainer />
       <div className="p-4">
         <h1 className="text-2xl font-semibold mb-4 text-gray-800">User Delete</h1>
 
