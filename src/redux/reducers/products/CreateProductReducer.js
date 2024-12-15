@@ -1,4 +1,4 @@
-import { CreateProductType } from "@/redux/types/products/CreateProductType";
+import  CreateProductType  from "@/redux/types/products/CreateProductType";
 
 const initialState = {
     isLoading: false,
