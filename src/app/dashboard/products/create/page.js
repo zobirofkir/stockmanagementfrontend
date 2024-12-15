@@ -1,13 +1,16 @@
 "use client";
 
 import CreateProductComponent from '@/components/products/create/CreateProductComponent';
+import ProtectedRoute from '@/protected/protectedRoute';
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      <CreateProductComponent />
-    </div>
+    <ProtectedRoute>
+      <div>
+        <CreateProductComponent />
+      </div>
+    </ProtectedRoute>
   )
 }
 

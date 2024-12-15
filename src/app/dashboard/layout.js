@@ -1,6 +1,7 @@
 "use client";
 
 import SidebarComponent from "@/components/SidebarComponent"; 
+import HeaderComponent from "@/components/header/HeaderComponent";
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'; 
 import { useState } from "react";
 
@@ -14,6 +15,7 @@ export default function DashboardLayout({ children }) {
 
   return (
     <>
+    <HeaderComponent />
       <button 
         className="lg:hidden p-4 text-gray-500"
         onClick={() => setSidebarOpen(!sidebarOpen)}

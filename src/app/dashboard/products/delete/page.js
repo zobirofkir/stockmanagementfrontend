@@ -1,11 +1,14 @@
 import DeleteProductsComponent from '@/components/products/delete/DeleteProductComponent'
+import ProtectedRoute from '@/protected/protectedRoute';
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
+    <ProtectedRoute>
+      <div>
         <DeleteProductsComponent />
-    </div>
+      </div>
+    </ProtectedRoute>
   )
 }
 

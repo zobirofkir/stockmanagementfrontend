@@ -1,13 +1,16 @@
 "use client";
 
 import GetProductsComponent from '@/components/products/all/GetProductsComponent'
+import ProtectedRoute from '@/protected/protectedRoute';
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
+    <ProtectedRoute>
+      <div>
         <GetProductsComponent />
-    </div>
+      </div>
+    </ProtectedRoute>
   )
 }
 
