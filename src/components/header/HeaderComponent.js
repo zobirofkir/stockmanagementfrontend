@@ -1,19 +1,29 @@
-import Image from 'next/image'
-import React, { useState } from 'react'
+import { LogoutAction } from "@/redux/actions/LogoutAction";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const HeaderComponent = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const name = localStorage.getItem("name");
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(LogoutAction());
+    localStorage.removeItem("name"); 
+    localStorage.removeItem("accessToken");
+    window.location.href = "/";
+  };
 
   const toggleDropdown = () => {
-    setDropdownOpen(prevState => !prevState);
+    setDropdownOpen((prevState) => !prevState);
   };
 
   return (
     <div className="flex items-center justify-between bg-white p-4 shadow-md md:px-12 px-5">
       <div className="text-gray-900 font-semibold text-xl">
-        <span className='md:block hidden'>
-          CSW
-        </span>
+        <span className="md:block hidden">{name}</span>
       </div>
 
       <div className="relative">
@@ -27,17 +37,26 @@ const HeaderComponent = () => {
           />
         </button>
 
-        <div 
-          className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${isDropdownOpen ? 'block' : 'hidden'} transition-all duration-300 ease-in-out`}
+        <div
+          className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ${
+            isDropdownOpen ? "block" : "hidden"
+          } transition-all duration-300 ease-in-out`}
         >
           <div className="py-1">
-            <a href="#" className="block px-4 py-2 text-gray-700 text-sm">Profile</a>
-            <a href="#" className="block px-4 py-2 text-gray-700 text-sm">Logout</a>
+            <Link href="/dashboard/users/profile" className="block px-4 py-2 text-gray-700 text-sm">
+              Profile
+            </Link>
+            <button
+              onClick={handleLogout}
+              className="block w-full text-left px-4 py-2 text-gray-700 text-sm"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HeaderComponent
+export default HeaderComponent;
