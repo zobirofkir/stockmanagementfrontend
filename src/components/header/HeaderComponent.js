@@ -1,11 +1,15 @@
-import { LogoutAction } from "@/redux/actions/LogoutAction";
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 const HeaderComponent = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const name = useSelector((state) => state.auth?.user?.name);
 
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -38,6 +42,7 @@ const HeaderComponent = () => {
               Profile
             </Link>
             <button
+              onClick={() => dispatch(LogoutAction())}
               className="block w-full text-left px-4 py-2 text-gray-700 text-sm"
             >
               Logout
