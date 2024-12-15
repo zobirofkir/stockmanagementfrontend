@@ -22,12 +22,18 @@ const GetProductsComponent = () => {
               <td className="p-4 text-gray-600">Category 1</td>
               <td className="p-4 text-gray-600">$20.00</td>
               <td className="p-4 text-gray-600">10</td>
+              <td className="p-4 text-gray-600">
+                <button className="text-blue-600 hover:text-blue-800 transition">Edit</button>
+              </td>
             </tr>
             <tr className="border-b border-gray-200">
               <td className="p-4 text-gray-700">Product 2</td>
               <td className="p-4 text-gray-600">Category 2</td>
               <td className="p-4 text-gray-600">$15.00</td>
               <td className="p-4 text-gray-600">5</td>
+              <td className="p-4 text-gray-600">
+                <button className="text-blue-600 hover:text-blue-800 transition">Edit</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -41,11 +47,13 @@ const GetProductsComponent = () => {
             <h3 className="font-semibold text-lg text-gray-700">Product 1</h3>
             <p className="text-gray-600">Price: <span className="font-semibold">$20.00</span></p>
             <p className="text-gray-600">Quantity: <span className="font-semibold">1</span></p>
+            <button className="text-blue-600 hover:text-blue-800 transition mt-2">Edit</button>
           </div>
           <div className="mb-6">
             <h3 className="font-semibold text-lg text-gray-700">Product 2</h3>
             <p className="text-gray-600">Price: <span className="font-semibold">$15.00</span></p>
             <p className="text-gray-600">Quantity: <span className="font-semibold">2</span></p>
+            <button className="text-blue-600 hover:text-blue-800 transition mt-2">Edit</button>
           </div>
         </div>
       </div>
