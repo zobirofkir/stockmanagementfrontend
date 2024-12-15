@@ -85,7 +85,7 @@ const Page = ({ params: promisedParams }) => {
         {isLoading && <p className="text-center text-gray-600">Loading...</p>}
 
         {user && (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 flex flex-col">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-4 w-full">
                 <div>
@@ -96,7 +96,7 @@ const Page = ({ params: promisedParams }) => {
                     id="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                    className="mt-1 block w-full py-3 px-4 text-lg rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-lg"
                   />
                 </div>
 
@@ -108,7 +108,7 @@ const Page = ({ params: promisedParams }) => {
                     id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                    className="mt-1 block w-full py-3 px-4 text-lg rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-lg"
                   />
                 </div>
 
@@ -121,7 +121,7 @@ const Page = ({ params: promisedParams }) => {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="*********"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                    className="mt-1 block w-full py-3 px-4 text-lg rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-lg"
                   />
                 </div>
 
@@ -132,7 +132,7 @@ const Page = ({ params: promisedParams }) => {
                     id="role"
                     value={formData.role}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm transition-all duration-300 ease-in-out transform hover:scale-105"
+                    className="mt-1 block w-full py-3 px-4 text-lg rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-lg"
                   >
                     <option value="">Select Role</option>
                     <option value="admin">Admin</option>
@@ -149,7 +149,7 @@ const Page = ({ params: promisedParams }) => {
                     id="status"
                     value={formData.status}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
+                    className="mt-1 block w-full py-3 px-4 text-lg rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-lg"
                   />
                 </div>
               </div>
@@ -158,7 +158,7 @@ const Page = ({ params: promisedParams }) => {
             <div className="text-right">
               <button
                 type="submit"
-                className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                className="inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
                 disabled={isUpdating}
               >
                 {isUpdating ? "Saving..." : "Save Changes"}
