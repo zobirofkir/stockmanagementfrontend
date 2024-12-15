@@ -6,15 +6,6 @@ import { useDispatch } from "react-redux";
 
 const HeaderComponent = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const name = localStorage.getItem("name"); 
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
-    dispatch(LogoutAction());
-    localStorage.removeItem("name"); 
-    localStorage.removeItem("accessToken");
-    window.location.href = "/"; 
-  };
 
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -47,7 +38,6 @@ const HeaderComponent = () => {
               Profile
             </Link>
             <button
-              onClick={handleLogout}
               className="block w-full text-left px-4 py-2 text-gray-700 text-sm"
             >
               Logout
