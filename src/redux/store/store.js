@@ -8,6 +8,7 @@ import GetUsersReducer from "../reducers/users/GetUsersReducer";
 import UserInfoReducer from "../reducers/users/UserInfoReducer";
 import UpdateUserReducer from "../reducers/users/UpdateUserReducer";
 import DeleteUserReducer from "../reducers/users/DeleteUserReducer";
+import CreateProductReducer from "../reducers/products/CreateProductReducer";
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -20,7 +21,12 @@ const rootReducer = combineReducers({
     getUsers : GetUsersReducer,
     userInfo : UserInfoReducer,
     updateUser : UpdateUserReducer,
-    deleteUser : DeleteUserReducer
+    deleteUser : DeleteUserReducer,
+
+    /**
+     * Products
+     */
+    createProduct : CreateProductReducer,
     
 });
 
