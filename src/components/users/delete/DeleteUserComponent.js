@@ -1,34 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { GetUsersAction } from '@/redux/actions/users/GetUsersAction';
-import { DeleteUserAction } from '@/redux/actions/users/DeleteUserAction';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { GetUsersAction } from "@/redux/actions/users/GetUsersAction";
+import { DeleteUserAction } from "@/redux/actions/users/DeleteUserAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const DeleteUserComponent = () => {
   const [isClient, setIsClient] = useState(false); 
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.getUsers);
+  const { isDeleting, userDelete, errorDelete } = useSelector((state) => state.deleteUser);
 
   const handleDeleteUser = (id) => {
-    if (dispatch(DeleteUserAction(id))){
-      toast.success('User deleted successfully', { autoClose: 1000 });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    }else{
-      toast.error('Error deleting user', { autoClose: 1000 });
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
-    }
+    dispatch(DeleteUserAction(id));
   };
 
   useEffect(() => {
-    setIsClient(true); 
+    setIsClient(true);
     dispatch(GetUsersAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (userDelete) {
+      toast.success(userDelete.message, { autoClose: 1000 });
+      dispatch(GetUsersAction());
+    } else if (errorDelete) {
+      toast.error(errorDelete, { autoClose: 1000 });
+    }
+  }, [userDelete, errorDelete, dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,7 +47,7 @@ const DeleteUserComponent = () => {
       <div className="p-4">
         <h1 className="text-2xl font-semibold mb-4 text-gray-800">User Delete</h1>
 
-        {/* Table on larger screens */}
+        {/* Table for larger screens */}
         <div className="hidden sm:block overflow-x-auto">
           <table className="min-w-full border-collapse border border-gray-300">
             <thead>
@@ -72,8 +71,9 @@ const DeleteUserComponent = () => {
                     <button
                       onClick={() => handleDeleteUser(user.id)}
                       className="px-3 py-1 bg-red-500 text-white rounded-md mr-2 hover:bg-red-600"
+                      disabled={isDeleting}
                     >
-                      Delete
+                      {isDeleting ? "Deleting..." : "Delete"}
                     </button>
                   </td>
                 </tr>
@@ -100,8 +100,9 @@ const DeleteUserComponent = () => {
                 <button
                   onClick={() => handleDeleteUser(user.id)}
                   className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600"
+                  disabled={isDeleting}
                 >
-                  Delete
+                  {isDeleting ? "Deleting..." : "Delete"}
                 </button>
               </div>
             </div>
