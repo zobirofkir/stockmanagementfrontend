@@ -11,8 +11,10 @@ const DeleteUserComponent = () => {
   const { users, loading, error } = useSelector((state) => state.getUsers);
   const { isDeleting, userDelete, errorDelete } = useSelector((state) => state.deleteUser);
 
-  const handleDeleteUser = (id) => {
-    dispatch(DeleteUserAction(id));
+  const handleDeleteUser = async (id) => {
+    await dispatch(DeleteUserAction(id));
+    toast.success("User deleted successfully!", { autoClose: 1000 });
+    dispatch(GetUsersAction());
   };
 
   useEffect(() => {
