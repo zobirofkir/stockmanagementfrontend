@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+import CreateSupplierAction from '@/redux/actions/suppliers/CreateSupplierAction';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateSupplierComponent = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +12,10 @@ const CreateSupplierComponent = () => {
     phone: '',
     address: '',
   });
+
+  const dispatch = useDispatch();
+
+  const { isLoading, createSupplier, supplierError } = useSelector(state => state.createSupplier);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,11 +27,24 @@ const CreateSupplierComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    dispatch(CreateSupplierAction(formData));
   };
+
+  useEffect(() =>   {
+    if (supplierError) {
+      toast.error(supplierError);
+    }
+
+    if (createSupplier) {
+      toast.success('Supplier created successfully');
+    }
+    
+  }, [supplierError, createSupplier]);
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <ToastContainer />
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">Create New Supplier</h2>
         <form onSubmit={handleSubmit}>
