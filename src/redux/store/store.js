@@ -11,6 +11,7 @@ import DeleteUserReducer from "../reducers/users/DeleteUserReducer";
 import CreateProductReducer from "../reducers/products/CreateProductReducer";
 import CreateCategoryReducer from "../reducers/categories/CreateCategoryReducer";
 import GetCategoriesReducer from "../reducers/categories/GetCategoriesReducer";
+import UpdateCategoryAction from "../actions/categories/UpdateCategoryAction";
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
      */
     createCategory : CreateCategoryReducer,
     getCategories : GetCategoriesReducer,
+    updateCategory : UpdateCategoryAction,
 
     /**
      * Products
