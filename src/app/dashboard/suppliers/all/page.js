@@ -1,3 +1,5 @@
+"use client";
+
 import GetSupplierComponent from '@/components/suppliers/GetSupplierComponent'
 import ProtectedRoute from '@/protected/protectedRoute'
 import React from 'react'
