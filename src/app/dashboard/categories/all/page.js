@@ -1,15 +1,15 @@
 "use client";
 
-import CategoryComponent from '@/components/categories/CategoryComponent'
+import GetCategoriesComponent from '@/components/categories/GetCategoriesComponent'
 import ProtectedRoute from '@/protected/protectedRoute';
 import React from 'react'
 
 const page = () => {
   return (
     <ProtectedRoute>
-      <div>
-          <CategoryComponent />
-      </div>
+        <div>
+            <GetCategoriesComponent />
+        </div>
     </ProtectedRoute>
   )
 }

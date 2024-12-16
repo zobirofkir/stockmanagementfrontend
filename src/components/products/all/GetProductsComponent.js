@@ -37,7 +37,7 @@ const GetProductsComponent = () => {
 
       {/* Mobile view */}
       <div className="block lg:hidden">
-        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Your Cart</h2>
+        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Products</h2>
         <div className="bg-white p-6 rounded-xl shadow-md max-w-sm mx-auto">
 
           <div className="mb-6 border-b pb-6">
