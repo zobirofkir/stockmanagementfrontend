@@ -1,11 +1,20 @@
-import React from 'react';
+import GetCategoriesAction from '@/redux/actions/categories/GetCategoriesAction';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const GetCategoriesComponent = () => {
+  const dispatch = useDispatch();
+  const { isLoading, categories, error } = useSelector((state) => state.getCategories);
+
+  useEffect(() => {
+    dispatch(GetCategoriesAction());
+  }, [dispatch]);
+
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
-      {/* Table for large screens */}
+
       <div className="hidden lg:block">
-        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900 mb-4">Category List</h2>
+        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Category List</h2>
         <table className="w-full text-left table-auto bg-gray-50 rounded-md shadow-sm">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
@@ -15,16 +24,23 @@ const GetCategoriesComponent = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-200">
-              <td className="p-4 text-gray-700">Category 1</td>
-              <td className="p-4 text-gray-600">Description 1</td>
-              <td className="p-4 text-gray-600">17/06/2024</td>
-            </tr>
-            <tr className="border-b border-gray-200">
-              <td className="p-4 text-gray-700">Category 2</td>
-              <td className="p-4 text-gray-600">Description 2</td>
-              <td className="p-4 text-gray-600">17/06/2024</td>
-            </tr>
+            {isLoading ? (
+              <tr>
+                <td colSpan="3" className="p-4 text-center text-gray-600">Loading...</td>
+              </tr>
+            ) : error ? (
+              <tr>
+                <td colSpan="3" className="p-4 text-center text-red-600">{error}</td>
+              </tr>
+            ) : (
+              categories?.map((category) => (
+                <tr key={category.id} className="border-b border-gray-200">
+                  <td className="p-4 text-gray-700">{category.title.substring(0, 20)} ...</td>
+                  <td className="p-4 text-gray-600">{category.description.substring(0, 10)} ...</td>
+                  <td className="p-4 text-gray-600">{new Date(category.created_at).toLocaleDateString()}</td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -33,22 +49,26 @@ const GetCategoriesComponent = () => {
       <div className="block lg:hidden">
         <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Categories</h2>
         <div className="bg-white p-6 rounded-xl shadow-md max-w-sm mx-auto">
-
-          <div className="mb-6 border-b pb-6">
-            <h3 className="font-semibold text-xl text-gray-800">Category 1</h3>
-            <p className="text-gray-600 mt-2"><span className="font-semibold text-green-600">Description 1</span></p>
-            <p className="text-gray-600 mt-2"><span className="font-semibold text-green-600">17/06/2024</span></p>
-          </div>
-
-          <div className="mb-6 border-b pb-6">
-            <h3 className="font-semibold text-xl text-gray-800">Category 2</h3>
-            <p className="text-gray-600 mt-2"><span className="font-semibold text-green-600">Description 2</span></p>
-            <p className="text-gray-600 mt-2"><span className="font-semibold text-green-600">17/06/2024</span></p>
-          </div>
-
+          {/* Render categories data dynamically */}
+          {isLoading ? (
+            <div className="text-center text-gray-600">Loading...</div>
+          ) : error ? (
+            <div className="text-center text-red-600">{error}</div>
+          ) : (
+            categories?.map((category) => (
+              <div key={category.id} className="mb-6 border-b pb-6">
+                <h3 className="font-semibold text-xl text-gray-800 text-center">{category.title.substring(0, 20)}</h3>
+                <p className="text-gray-600 mt-2">
+                  <span className="font-semibold text-gray-800 text-center">{category.description.substring(0, 10)} ...</span>
+                </p>
+                <p className="text-gray-600 mt-2">
+                  <span className="font-semibold text-green-600 text-center">{new Date(category.created_at).toLocaleDateString()}</span>
+                </p>
+              </div>
+            ))
+          )}
         </div>
       </div>
-
     </div>
   );
 };
