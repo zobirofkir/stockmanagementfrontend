@@ -61,25 +61,25 @@ const DeleteCategoryComponent = () => {
       {/* Mobile view */}
       <div className="block lg:hidden">
         <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Categories</h2>
-        <div className="bg-white p-6 rounded-xl shadow-md max-w-sm mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {isLoading ? (
             <div className="text-center text-gray-600">Loading...</div>
           ) : error ? (
             <div className="text-center text-red-600">{error}</div>
           ) : (
             categories?.map((category) => (
-              <div key={category.id} className="mb-6 border-b pb-6">
+              <div key={category.id} className="bg-white p-6 rounded-xl shadow-md border border-gray-200">
                 <h3 className="font-semibold text-xl text-gray-800 text-center">{category.title.substring(0, 20)}</h3>
                 <p className="text-gray-600 mt-2">
-                  <span className="font-semibold text-gray-800 text-center">{category.description.substring(0, 10)} ...</span>
+                  <span className="font-semibold text-gray-800">{category.description.substring(0, 10)} ...</span>
                 </p>
                 <p className="text-gray-600 mt-2">
-                  <span className="font-semibold text-green-600 text-center">{new Date(category.created_at).toLocaleDateString()}</span>
+                  <span className="font-semibold text-green-600">{new Date(category.created_at).toLocaleDateString()}</span>
                 </p>
                 <div className="text-center mt-4">
                   <button
                     onClick={() => handleDelete(category.id)}
-                    className="bg-red-500 font-bold text-white px-4 py-2 rounded hover:bg-red-600 font-bold"
+                    className="bg-red-500 font-bold text-white px-4 py-2 rounded hover:bg-red-600"
                   >
                     Delete
                   </button>

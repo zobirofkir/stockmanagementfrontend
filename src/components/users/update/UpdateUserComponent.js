@@ -58,7 +58,7 @@ const UpdateUserComponent = () => {
                   <td className="px-4 py-2 border-b border-gray-300 text-center">
                     <button
                       onClick={() => handleUpdateUser(user.id)}
-                      className="px-3 py-1 bg-blue-500 text-white rounded-md mr-2 hover:bg-blue-600"
+                      className="px-3 py-1 bg-yellow-500 font-bold text-white rounded-md mr-2 hover:bg-yellow-600 font-bold"
                     >
                       Update
                     </button>
@@ -86,7 +86,7 @@ const UpdateUserComponent = () => {
               <div className="flex justify-between">
                 <button
                   onClick={() => handleUpdateUser(user.id)}
-                  className="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                  className="px-3 py-1 bg-yellow-500 font-bold text-white rounded-md hover:bg-yellow-600 font-bold"
                 >
                   Update
                 </button>
