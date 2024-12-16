@@ -1,6 +1,9 @@
+import { deleteCategoryAction } from '@/redux/actions/categories/DeleteCategoryAction';
 import GetCategoriesAction from '@/redux/actions/categories/GetCategoriesAction';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const DeleteCategoryComponent = () => {
   const dispatch = useDispatch();
@@ -10,13 +13,15 @@ const DeleteCategoryComponent = () => {
     dispatch(GetCategoriesAction());
   }, [dispatch]);
 
-  const handleDelete = (categoryId) => {
-    // Placeholder for Delete logic, e.g., navigating to an Delete form or triggering an action.
-    console.log(`Delete category with ID: ${categoryId}`);
+  const handleDelete = async (categoryId) => {
+    await dispatch(deleteCategoryAction(categoryId));
+    toast.success("Category deleted successfully" , { autoClose: 1000 });
+    dispatch(GetCategoriesAction());
   };
 
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
+      <ToastContainer />
       <div className="hidden lg:block">
         <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Category List</h2>
         <table className="w-full text-left table-auto bg-gray-50 rounded-md shadow-sm">
