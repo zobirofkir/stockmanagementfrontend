@@ -10,6 +10,7 @@ const GetProductsComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState(''); // Filter by category state
 
   useEffect(() => {
     dispatch(GetProductsAction());
@@ -57,10 +58,46 @@ const GetProductsComponent = () => {
     }
   };
 
+  // Filter products by selected category
+  const filteredProducts = selectedCategory
+    ? productsGet.filter((product) => product.category.title === selectedCategory)
+    : productsGet;
+
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
       <div className="hidden lg:block">
         <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900 mb-4">Product List</h2>
+
+        {/* Category Filter */}
+        <div className="mb-4">
+          <label htmlFor="category" className="block text-gray-700 font-bold">Filter by Category</label>
+          <div className="flex flex-row gap-4 items-center mt-4">
+            <select
+              id="category"
+              className="p-2 border border-gray-300 rounded-md"
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              value={selectedCategory}
+            >
+              <option value="">All Categories</option>
+              {/* Assuming product categories are unique */}
+              {[...new Set(productsGet.map((product) => product.category.title))].map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+
+            <div>
+              <button
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                onClick={() => setSelectedCategory('')}
+              >
+                Reset Filter
+              </button>
+            </div>
+          </div>
+        </div>
+
         <table className="w-full text-left table-auto bg-gray-50 rounded-md shadow-sm">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
@@ -72,7 +109,7 @@ const GetProductsComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {productsGet.map((product) => (
+            {filteredProducts.map((product) => (
               <tr key={product.id} className="border-b border-gray-200">
                 <td
                   className="p-4 text-gray-700 cursor-pointer"
@@ -93,7 +130,7 @@ const GetProductsComponent = () => {
       {/* Mobile View */}
       <div className="block lg:hidden">
         <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Products</h2>
-        {productsGet.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="bg-white p-6 rounded-xl shadow-md max-w-sm mx-auto mb-6">
             <div className="mb-6 border-b pb-6">
               <h3 className="font-semibold text-xl text-gray-800">{product.title}</h3>
@@ -158,7 +195,7 @@ const GetProductsComponent = () => {
       <div className="flex justify-between items-center mt-4">
         <p className="text-lg text-gray-800 font-semibold">Total:</p>
         <p className="text-xl text-gray-900 font-bold">
-          ${productsGet.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2)}
+          ${filteredProducts.reduce((total, product) => total + product.price * product.quantity, 0).toFixed(2)}
         </p>
       </div>
     </div>
