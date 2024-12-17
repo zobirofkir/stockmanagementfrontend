@@ -44,6 +44,7 @@ const rootReducer = combineReducers({
     createSupplier : CreateSupplierReducer,
     getSuppliers : GetSuppliersReducer,
     updateSupplier : updateSupplierReducer,
+    deleteSupplier : DeleteUserReducer,
 
     /**
      * Products
