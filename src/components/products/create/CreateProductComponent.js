@@ -11,7 +11,7 @@ const CreateProductComponent = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.getCategories);
   const { getSupplier: suppliers } = useSelector((state) => state.getSuppliers);
-  const { isLoading, productError } = useSelector((state) => state.createProduct);
+  const { isLoading, error, product } = useSelector((state) => state.createProduct);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -54,16 +54,18 @@ const CreateProductComponent = () => {
       return;
     }
 
-    if (dispatch(CreateProductAction(formData))) {
-      toast.success("Product created successfully!", { autoClose: 1000 });
-    }
+      dispatch(CreateProductAction(formData));
   };
 
   useEffect(() => {
-    if (productError) {
-      toast.error(productError);
+    if (error) {
+      toast.error(error);
     }
-  }, [productError]);
+
+    if (product) {
+      toast.success("Product created successfully");
+    }
+  }, [error, product]);
 
   return (
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-4xl mt-20">
