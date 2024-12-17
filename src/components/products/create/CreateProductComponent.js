@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import GetCategoriesAction from '@/redux/actions/categories/GetCategoriesAction';
 import CreateProductAction from '@/redux/actions/products/CreateProductAction';
 import GetSuppliersAction from '@/redux/actions/suppliers/GetSuppliersAction';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const CreateProductComponent = () => {
   const dispatch = useDispatch();
@@ -36,14 +37,12 @@ const CreateProductComponent = () => {
     const selectedFiles = Array.from(e.target.files);
     const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
 
-    // Filter invalid file types
     const validFiles = selectedFiles.filter((file) => allowedTypes.includes(file.type));
 
     if (validFiles.length !== selectedFiles.length) {
       toast.error('One or more files are of an invalid type. Please upload images in jpeg, png, jpg, gif, or svg format.');
     }
 
-    // Update state with valid files
     setFormData({ ...formData, images: validFiles });
   };
 
@@ -55,7 +54,9 @@ const CreateProductComponent = () => {
       return;
     }
 
-    dispatch(CreateProductAction(formData));
+    if (dispatch(CreateProductAction(formData))) {
+      toast.success("Product created successfully!", { autoClose: 1000 });
+    }
   };
 
   useEffect(() => {
