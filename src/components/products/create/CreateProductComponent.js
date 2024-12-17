@@ -1,46 +1,74 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import GetCategoriesAction from '@/redux/actions/categories/GetCategoriesAction';
+import CreateProductAction from '@/redux/actions/products/CreateProductAction';
+import GetSuppliersAction from '@/redux/actions/suppliers/GetSuppliersAction';
 
 const CreateProductComponent = () => {
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.getCategories);
+  const { getSupplier: suppliers } = useSelector((state) => state.getSuppliers);
+  const { isLoading, productError } = useSelector((state) => state.createProduct);
+
   const [formData, setFormData] = useState({
+    title: '',
     category_id: '',
     supplier_id: '',
-    title: '',
-    images: [],
     description: '',
     price: '',
-    quantity: ''
-  })
+    quantity: '',
+    images: [],
+  });
 
-  const categories = [
-    { id: '1', name: 'Category 1' },
-    { id: '2', name: 'Category 2' },
-    { id: '3', name: 'Category 3' },
-  ]
-
-  const suppliers = [
-    { id: '1', name: 'Supplier 1' },
-    { id: '2', name: 'Supplier 2' },
-    { id: '3', name: 'Supplier 3' },
-  ]
+  useEffect(() => {
+    dispatch(GetCategoriesAction());
+    dispatch(GetSuppliersAction());
+  }, [dispatch]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, images: e.target.files })
-  }
+    const selectedFiles = Array.from(e.target.files);
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/svg+xml'];
+
+    // Filter invalid file types
+    const validFiles = selectedFiles.filter((file) => allowedTypes.includes(file.type));
+
+    if (validFiles.length !== selectedFiles.length) {
+      toast.error('One or more files are of an invalid type. Please upload images in jpeg, png, jpg, gif, or svg format.');
+    }
+
+    // Update state with valid files
+    setFormData({ ...formData, images: validFiles });
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData)
-  }
+    e.preventDefault();
+
+    if (!formData.supplier_id || !formData.quantity || formData.images.length === 0) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    dispatch(CreateProductAction(formData));
+  };
+
+  useEffect(() => {
+    if (productError) {
+      toast.error(productError);
+    }
+  }, [productError]);
 
   return (
     <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-4xl mt-20">
+      <ToastContainer />
       <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Create New Product</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" encType="multipart/form-data">
         <div>
           <label htmlFor="category_id" className="block text-gray-700">Category</label>
           <select
@@ -52,9 +80,9 @@ const CreateProductComponent = () => {
             required
           >
             <option value="">Select Category</option>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <option key={category.id} value={category.id}>
-                {category.name}
+                {category.title}
               </option>
             ))}
           </select>
@@ -71,7 +99,7 @@ const CreateProductComponent = () => {
             required
           >
             <option value="">Select Supplier</option>
-            {suppliers.map((supplier) => (
+            {suppliers?.map((supplier) => (
               <option key={supplier.id} value={supplier.id}>
                 {supplier.name}
               </option>
@@ -102,7 +130,6 @@ const CreateProductComponent = () => {
             multiple
             onChange={handleFileChange}
             className="w-full p-3 border border-gray-300 rounded-md"
-            required
           />
         </div>
 
@@ -151,13 +178,14 @@ const CreateProductComponent = () => {
           <button
             type="submit"
             className="w-full md:w-1/2 py-3 bg-gray-600 text-white font-semibold rounded-md hover:bg-gray-700"
+            disabled={isLoading}
           >
-            Create Product
+            {isLoading ? 'Creating...' : 'Create Product'}
           </button>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateProductComponent
+export default CreateProductComponent;
