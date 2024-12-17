@@ -16,6 +16,7 @@ import deleteCategoryReducer from "../reducers/categories/DeleteCategoryReducer"
 import CreateSupplierReducer from "../reducers/suppliers/CreateSupplierReducer";
 import GetSuppliersReducer from "../reducers/suppliers/GetSuppliersReducer";
 import updateSupplierReducer from "../reducers/suppliers/UpdateSupplierReducer";
+import GetProductsReducer from "../reducers/products/GetProductsReducer";
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
      * Products
      */
     createProduct : CreateProductReducer,
+    getProducts : GetProductsReducer,
     
 });
 
