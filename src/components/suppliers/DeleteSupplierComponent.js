@@ -19,21 +19,12 @@ const DeleteSupplierComponent = () => {
     await dispatch(DeleteSupplierAction(supplier.id)); 
     
     toast.success("Supplier deleted successfully!", { autoClose: 1000 });
-    
+
     setSelectedSupplier(null);
 
     dispatch(GetSuppliersAction());
   };
 
-  useEffect(() => {
-    if (supplierDelete) {
-      toast.success("Supplier deleted successfully!", { autoClose: 1000 });
-      dispatch(GetSuppliersAction());
-      setSelectedSupplier(null);
-    } else if (supplierError) {
-      toast.error(supplierError || "An error occurred while deleting the supplier.");
-    }
-  }, [dispatch, supplierDelete, supplierError]);
 
   useEffect(() => {
     dispatch(GetSuppliersAction());
