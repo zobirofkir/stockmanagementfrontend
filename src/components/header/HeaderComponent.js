@@ -1,16 +1,31 @@
 "use client";
 
 import { LogoutAction } from "@/redux/actions/LogoutAction";
+import { ProfileAction } from "@/redux/actions/ProfileAction"; 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 const HeaderComponent = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const dispatch = useDispatch();
 
+  const { profile, error, loading } = useSelector((state) => state.profile);
   const name = useSelector((state) => state.auth?.user?.name);
+  
+  useEffect(() => {
+    dispatch(ProfileAction());
+  }, [dispatch]);
+
+  const [profileImage, setProfileImage] = useState(null);
+
+  useEffect(() => {
+    if (profile) {
+      const imageUrl = Array.isArray(profile.image) ? profile.image[0] : profile.image;
+      setProfileImage(imageUrl || null);
+    }
+  }, [profile]);
 
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
@@ -27,7 +42,7 @@ const HeaderComponent = () => {
           <Image
             width={40}
             height={40}
-            src="https://via.placeholder.com/40"
+            src={profileImage || "https://via.placeholder.com/150"}
             alt="Profile"
             className="w-10 h-10 rounded-full"
           />
