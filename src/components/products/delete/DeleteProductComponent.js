@@ -23,7 +23,7 @@ const DeleteProductsComponent = () => {
               <td className="p-4 text-gray-600">$20.00</td>
               <td className="p-4 text-gray-600">10</td>
               <td className="p-4 text-gray-600">
-                <button className="text-red-600 hover:text-red-800 transition">Delete</button>
+                <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition">Delete</button>
               </td>
             </tr>
             <tr className="border-b border-gray-200">
@@ -32,7 +32,7 @@ const DeleteProductsComponent = () => {
               <td className="p-4 text-gray-600">$15.00</td>
               <td className="p-4 text-gray-600">5</td>
               <td className="p-4 text-gray-600">
-                <button className="text-red-600 hover:text-red-800 transition">Delete</button>
+                <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition">Delete</button>
               </td>
             </tr>
           </tbody>
@@ -47,13 +47,13 @@ const DeleteProductsComponent = () => {
             <h3 className="font-semibold text-lg text-gray-700">Product 1</h3>
             <p className="text-gray-600">Price: <span className="font-semibold">$20.00</span></p>
             <p className="text-gray-600">Quantity: <span className="font-semibold">1</span></p>
-            <button className="text-red-600 hover:text-red-800 transition mt-2">Delete</button>
+            <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition mt-2">Delete</button>
           </div>
           <div className="mb-6">
             <h3 className="font-semibold text-lg text-gray-700">Product 2</h3>
             <p className="text-gray-600">Price: <span className="font-semibold">$15.00</span></p>
             <p className="text-gray-600">Quantity: <span className="font-semibold">2</span></p>
-            <button className="text-red-600 hover:text-red-800 transition mt-2">Delete</button>
+            <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition mt-2">Delete</button>
           </div>
         </div>
       </div>
