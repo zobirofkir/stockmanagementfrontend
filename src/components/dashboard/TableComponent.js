@@ -1,56 +1,40 @@
+import GetCategoriesAction from '@/redux/actions/categories/GetCategoriesAction';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const TableComponent = () => {
-  const products = [
-    {
-      id: 1,
-      image: 'https://via.placeholder.com/150',
-      name: 'Product 1',
-      category: 'Category A',
-      prix: 120,
-    },
-    {
-      id: 2,
-      image: 'https://via.placeholder.com/150',
-      name: 'Product 2',
-      category: 'Category B',
-      prix: 200,
-    },
-    {
-      id: 3,
-      image: 'https://via.placeholder.com/150',
-      name: 'Product 3',
-      category: 'Category A',
-      prix: 150,
-    },
-    {
-      id: 4,
-      image: 'https://via.placeholder.com/150',
-      name: 'Product 4',
-      category: 'Category C',
-      prix: 90,
-    },
-  ];
+  const dispatch = useDispatch();
+  const { isLoading, productsGet, productsError } = useSelector((state) => state.getProducts);
+
+  useEffect(() => {
+    // Dispatch the action to fetch categories
+    dispatch(GetCategoriesAction());
+  }, [dispatch]);
 
   return (
     <div className="container mx-auto p-6">
       <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:hidden block">
         {/* Mobile view: Cards */}
-        {products.map((product) => (
+        {productsGet.map((product) => (
           <div
             key={product.id}
             className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center"
           >
-            <Image
-              width={150}
-              height={150}
-              src={product.image}
-              alt={product.name}
-              className="w-32 h-32 object-cover rounded-lg"
-            />
-            <h3 className="mt-4 text-lg font-semibold">{product.name}</h3>
-            <p className="text-sm text-gray-600">{product.category}</p>
+            {product.images?.[0] ? (
+              <Image
+                width={150}
+                height={150}
+                src={product.images[0]}
+                alt={product.title}
+                className="w-32 h-32 object-cover rounded-lg"
+              />
+            ) : (
+              <div className="w-32 h-32 bg-gray-200 rounded-lg"></div>
+            )}
+            <h3 className="mt-4 text-lg font-semibold">{product.title}</h3>
+            {/* Handle missing or undefined category */}
+            <p className="text-sm text-gray-600">{product.category?.title || 'No Category'}</p>
             <p className="mt-2 text-xl font-bold">${product.prix}</p>
           </div>
         ))}
@@ -68,20 +52,25 @@ const TableComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {productsGet.map((product) => (
               <tr key={product.id} className="border-t hover:bg-gray-50">
                 <td className="px-4 py-2">
-                  <Image
-                    width={50}
-                    height={50}
-                    src={product.image}
-                    alt={product.name}
-                    className="w-16 h-16 object-cover rounded-lg"
-                  />
+                  {product.images?.[0] ? (
+                    <Image
+                      width={50}
+                      height={50}
+                      src={product.images[0]}
+                      alt={product.title}
+                      className="w-16 h-16 object-cover rounded-lg"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 bg-gray-200 rounded-lg"></div>
+                  )}
                 </td>
-                <td className="px-4 py-2">{product.name}</td>
-                <td className="px-4 py-2">{product.category}</td>
-                <td className="px-4 py-2">${product.prix}</td>
+                <td className="px-4 py-2">{product.title}</td>
+                {/* Handle missing or undefined category */}
+                <td className="px-4 py-2">{product.category?.title || 'No Category'}</td>
+                <td className="px-4 py-2">${product.price}</td>
               </tr>
             ))}
           </tbody>
