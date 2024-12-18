@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const LoginComponent = () => {
+const Page = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -63,7 +63,7 @@ const LoginComponent = () => {
               <input type="checkbox" className="mr-2" />
               Remember me
             </label>
-            <Link href="/supplier/login" className="text-sm text-gray-600 hover:underline">Login As Supplier</Link>
+            <Link href="/" className="text-sm text-gray-600 hover:underline">Login As Admin Or User</Link>
           </div>
           <button
             type="submit"
@@ -77,7 +77,7 @@ const LoginComponent = () => {
       {/* Right side: Image */}
       <div className="hidden sm:block sm:w-1/2 bg-gray-100">
         <Image
-          src="https://healthywork.es/wp-content/uploads/2023/03/teambuilding-4-836x836.jpg"
+          src="https://www.compliancequest.com/wp-content/uploads/2023/02/supplier-quality-management.png"
           alt="Login Image"
           width={500}
           height={500}
@@ -88,4 +88,4 @@ const LoginComponent = () => {
   );
 };
 
-export default LoginComponent;
+export default Page;
