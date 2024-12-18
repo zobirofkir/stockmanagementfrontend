@@ -35,7 +35,7 @@ const TableComponent = () => {
             <h3 className="mt-4 text-lg font-semibold">{product.title}</h3>
             {/* Handle missing or undefined category */}
             <p className="text-sm text-gray-600">{product.category?.title || 'No Category'}</p>
-            <p className="mt-2 text-xl font-bold">${product.prix}</p>
+            <p className="mt-2 text-xl font-bold">${product.price}</p>
           </div>
         ))}
       </div>
