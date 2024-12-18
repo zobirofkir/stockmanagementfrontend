@@ -1,11 +1,57 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import GetProductsAction from "@/redux/actions/products/GetProductsAction";
+import DeleteProductAction from "@/redux/actions/products/DeleteProductAction";
 
-const DeleteProductsComponent = () => {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const DeleteProductComponent = () => {
+  const dispatch = useDispatch();
+  const { isLoading, productsGet, error } = useSelector((state) => state.getProducts);
+
+  useEffect(() => {
+    dispatch(GetProductsAction());
+  }, [dispatch]);
+
+  const handleDeleteProduct = async (productId) => {
+    await dispatch(DeleteProductAction(productId));
+    toast.success("Product deleted successfully.", { autoClose: 1000 });
+    dispatch(GetProductsAction());
+  };
+
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
-      {/* Table for large screens */}
+      <ToastContainer />
+      <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Delete Product</h2>
+
+      {/* Mobile View */}
+      <div className="block lg:hidden">
+        {isLoading ? (
+          <p className="text-center text-gray-600">Loading...</p>
+        ) : error ? (
+          <p className="text-center text-red-600">{error}</p>
+        ) : productsGet?.length ? (
+          productsGet.map((product) => (
+            <div key={product.id} className="p-4 mb-4 border border-gray-200 rounded-lg shadow-sm bg-gray-50">
+              <h3 className="text-lg font-bold text-gray-700 mb-2">{product.title}</h3>
+              <p className="text-sm text-gray-600">Price: ${product.price}</p>
+              <p className="text-sm text-gray-600">Quantity: {product.quantity}</p>
+              <button
+                onClick={() => handleDeleteProduct(product.id)}
+                className="bg-red-500 font-bold text-white px-4 py-2 rounded hover:bg-red-600 mt-2"
+              >
+                Delete
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-gray-600">No products available.</p>
+        )}
+      </div>
+
+      {/* Desktop View */}
       <div className="hidden lg:block">
-        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900 mb-4">Delete Product</h2>
         <table className="w-full text-left table-auto bg-gray-50 rounded-md shadow-sm">
           <thead>
             <tr className="bg-gray-200 text-gray-700">
@@ -17,48 +63,41 @@ const DeleteProductsComponent = () => {
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-200">
-              <td className="p-4 text-gray-700">Product 1</td>
-              <td className="p-4 text-gray-600">Category 1</td>
-              <td className="p-4 text-gray-600">$20.00</td>
-              <td className="p-4 text-gray-600">10</td>
-              <td className="p-4 text-gray-600">
-                <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition">Delete</button>
-              </td>
-            </tr>
-            <tr className="border-b border-gray-200">
-              <td className="p-4 text-gray-700">Product 2</td>
-              <td className="p-4 text-gray-600">Category 2</td>
-              <td className="p-4 text-gray-600">$15.00</td>
-              <td className="p-4 text-gray-600">5</td>
-              <td className="p-4 text-gray-600">
-                <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition">Delete</button>
-              </td>
-            </tr>
+            {isLoading ? (
+              <tr>
+                <td colSpan="5" className="p-4 text-center text-gray-600">Loading...</td>
+              </tr>
+            ) : error ? (
+              <tr>
+                <td colSpan="5" className="p-4 text-center text-red-600">{error}</td>
+              </tr>
+            ) : productsGet?.length ? (
+              productsGet.map((product) => (
+                <tr key={product.id} className="border-b border-gray-200">
+                  <td className="p-4 text-gray-700">{product.title}</td>
+                  <td className="p-4 text-gray-600">{product.category?.title || "N/A"}</td>
+                  <td className="p-4 text-gray-600">${product.price}</td>
+                  <td className="p-4 text-gray-600">{product.quantity}</td>
+                  <td className="p-4 text-center">
+                    <button
+                      onClick={() => handleDeleteProduct(product.id)}
+                      className="bg-red-500 font-bold text-white px-4 py-2 rounded hover:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="p-4 text-center text-gray-600">No products available.</td>
+              </tr>
+            )}
           </tbody>
         </table>
-      </div>
-
-      {/* Mobile view */}
-      <div className="block lg:hidden">
-        <h2 className="text-3xl font-semibold text-center mb-8 text-gray-900">Your Cart</h2>
-        <div className="bg-gray-50 p-6 rounded-md shadow-sm">
-          <div className="mb-6">
-            <h3 className="font-semibold text-lg text-gray-700">Product 1</h3>
-            <p className="text-gray-600">Price: <span className="font-semibold">$20.00</span></p>
-            <p className="text-gray-600">Quantity: <span className="font-semibold">1</span></p>
-            <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition mt-2">Delete</button>
-          </div>
-          <div className="mb-6">
-            <h3 className="font-semibold text-lg text-gray-700">Product 2</h3>
-            <p className="text-gray-600">Price: <span className="font-semibold">$15.00</span></p>
-            <p className="text-gray-600">Quantity: <span className="font-semibold">2</span></p>
-            <button className="text-white font-bold bg-red px-4 py-2 bg-red-500 rounded-md hover:text-red-800 transition mt-2">Delete</button>
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default DeleteProductsComponent;
+export default DeleteProductComponent;
