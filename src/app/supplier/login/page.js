@@ -34,7 +34,7 @@ const Page = () => {
     <div className="flex min-h-screen items-center justify-center bg-light-gray">
       <ToastContainer />
       <div className="w-full sm:w-1/2 p-6 bg-white rounded-lg md:px-[10%] px-5">
-        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Login</h2>
+        <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">Supplier Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-600">Email</label>
