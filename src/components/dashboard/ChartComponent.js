@@ -2,14 +2,19 @@ import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import ProtectedRoute from "@/protected/protectedRoute";
+import { useDispatch, useSelector } from "react-redux";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function ChartComponent() {
-  const [products, setProducts] = useState(120);
   const [users, setUsers] = useState(350);
   const [categories, setCategories] = useState(15);
   const [orders, setOrders] = useState(200);
+  const [productsLength, setProductsLength] = useState(0);
+
+  const dispatch = useDispatch();
+
+  const { isLoading, productsGet, productsError } = useSelector(state => state.getProducts);
 
   const [chartData1, setChartData1] = useState({});
   const [chartData2, setChartData2] = useState({});
@@ -17,8 +22,11 @@ function ChartComponent() {
   const [chartData4, setChartData4] = useState({});
 
   useEffect(() => {
+    if (productsGet) {
+      setProductsLength(productsGet.length);
+    }
+
     setTimeout(() => {
-      setProducts(120); 
       setUsers(350);  
       setCategories(15); 
       setOrders(200); 
@@ -28,7 +36,7 @@ function ChartComponent() {
         datasets: [
           {
             label: "Products",
-            data: [50, 60, 70, 80, 90, 100, 120],
+            data: [50, 60, 70, 80, 90, 100, productsLength],
             borderColor: "#3B82F6",
             backgroundColor: "rgba(59, 130, 246, 0.2)",
             fill: true,
@@ -83,7 +91,7 @@ function ChartComponent() {
         ],
       });
     }, 1000);
-  }, []);
+  }, [productsGet, productsLength]);
 
   const chartOptions = {
     responsive: true,
@@ -120,7 +128,6 @@ function ChartComponent() {
 
   return (
     <div className="p-6">
-
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
         {/* Products vs Time (Line Chart 1) */}
         <div className="bg-white shadow-lg rounded-lg p-6 border border-blue-200 transform transition duration-500 hover:scale-105">
