@@ -10,13 +10,12 @@ const GetProductsComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [selectedCategory, setSelectedCategory] = useState(''); // Filter by category state
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     dispatch(GetProductsAction());
   }, [dispatch]);
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
@@ -25,7 +24,6 @@ const GetProductsComponent = () => {
     );
   }
 
-  // Error state
   if (productsError) {
     return (
       <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
@@ -58,7 +56,6 @@ const GetProductsComponent = () => {
     }
   };
 
-  // Filter products by selected category
   const filteredProducts = selectedCategory
     ? productsGet.filter((product) => product.category.title === selectedCategory)
     : productsGet;
