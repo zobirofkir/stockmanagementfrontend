@@ -15,7 +15,6 @@ const DeleteCategoryComponent = () => {
 
   const handleDelete = async (categoryId) => {
     await dispatch(deleteCategoryAction(categoryId));
-    toast.success("Category deleted successfully" , { autoClose: 1000 });
     dispatch(GetCategoriesAction());
   };
 

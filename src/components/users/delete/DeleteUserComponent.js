@@ -13,7 +13,6 @@ const DeleteUserComponent = () => {
 
   const handleDeleteUser = async (id) => {
     await dispatch(DeleteUserAction(id));
-    toast.success("User deleted successfully!", { autoClose: 1000 });
     dispatch(GetUsersAction());
   };
 

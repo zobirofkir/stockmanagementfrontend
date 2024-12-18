@@ -18,8 +18,6 @@ const DeleteSupplierComponent = () => {
     if (isDeleting) return;
     await dispatch(DeleteSupplierAction(supplier.id)); 
     
-    toast.success("Supplier deleted successfully!", { autoClose: 1000 });
-
     setSelectedSupplier(null);
 
     dispatch(GetSuppliersAction());
@@ -29,6 +27,15 @@ const DeleteSupplierComponent = () => {
   useEffect(() => {
     dispatch(GetSuppliersAction());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (supplierDelete) {
+      toast.success(supplierDelete.message, { autoClose: 1000 });
+      dispatch(GetSuppliersAction());
+    } else if (supplierError) {
+      toast.error(`Error: ${supplierError}`, { autoClose: 1000 });
+    }
+  }, [supplierDelete, supplierError, dispatch]);
 
   return (
     <div className="container mx-auto p-4 bg-white rounded-lg shadow-lg mt-10">
