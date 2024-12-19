@@ -23,7 +23,6 @@ export const GetUsersAction = (params) => {
         try {
             const response = await GetUsersService(params);
             dispatch(successGetUsers(response.data.data));
-            console.log(response.data.data);
             return { success: true, data: response.data.data };
         } catch (error) {
             const errorMsg = error?.response?.data?.message || "An error occurred. Please try again.";

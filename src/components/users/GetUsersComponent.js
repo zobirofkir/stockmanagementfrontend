@@ -1,16 +1,21 @@
 "use client";
 
 import { GetUsersAction } from "@/redux/actions/users/GetUsersAction";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const GetUsersComponent = () => {
   const dispatch = useDispatch();
   const { users, loading, error } = useSelector((state) => state.getUsers);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     dispatch(GetUsersAction());
   }, [dispatch]);
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -24,6 +29,17 @@ const GetUsersComponent = () => {
     <div className="p-4">
       <h1 className="text-2xl font-semibold mb-4 text-gray-800">Users List</h1>
 
+      {/* Search Form */}
+      <div className="mb-4">
+        <input
+          type="text"
+          className="w-full p-2 border border-gray-300 rounded-md"
+          placeholder="Search by name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
       {/* Table on larger screens */}
       <div className="hidden sm:block overflow-x-auto">
         <table className="min-w-full border-collapse border border-gray-300">
@@ -35,8 +51,7 @@ const GetUsersComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => {
-
+            {filteredUsers.map((user, index) => {
               return (
                 <tr
                   key={user.id}
@@ -54,8 +69,7 @@ const GetUsersComponent = () => {
 
       {/* Mobile view (cards) */}
       <div className="sm:hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {users.map((user) => {
-
+        {filteredUsers.map((user) => {
           return (
             <div key={user.id} className="bg-white p-4 border border-gray-300 rounded-lg shadow-md">
               <div className="flex items-center mb-4">
