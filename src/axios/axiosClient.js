@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-    baseURL: 'http://0.0.0.0/api/',
+    baseURL: 'https://zobirofkir.com/stockmanagementbackend/public/api/',
     headers: {
         'Content-Type': 'application/json'
     }
