@@ -22,17 +22,33 @@ const CreateUserComponent = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
-
+  
     if (name === "image" && files) {
       const file = files[0];
+  
+      const allowedFormats = ["image/jpeg", "image/png", "image/gif"];
+      if (!allowedFormats.includes(file.type)) {
+        toast.error("Invalid image format. Only JPEG, PNG, and GIF are allowed.", {
+          position: "top-right",
+        });
+        return;
+      }
+  
+      const maxSizeInBytes = 2 * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        toast.error("Image size exceeds 2MB. Please upload a smaller image.", {
+          position: "top-right",
+        });
+        return;
+      }
+  
       const reader = new FileReader();
-
       reader.onloadend = () => {
         setFormData((prev) => ({ ...prev, image: reader.result }));
         setImagePreview(URL.createObjectURL(file));
       };
-
-      reader.readAsDataURL(file); 
+  
+      reader.readAsDataURL(file);
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -40,7 +56,7 @@ const CreateUserComponent = () => {
       }));
     }
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 

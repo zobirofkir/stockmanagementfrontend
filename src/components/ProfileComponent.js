@@ -69,12 +69,31 @@ const ProfileComponent = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
+    
     if (file) {
+      const allowedFormats = ["image/jpeg", "image/png", "image/jpg"];
+      if (!allowedFormats.includes(file.type)) {
+        toast.error("Invalid file format. Please upload a JPEG or PNG image.", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+        return;
+      }
+  
+      const maxSize = 2 * 1024 * 1024;
+      if (file.size > maxSize) {
+        toast.error("File size exceeds 2MB. Please upload a smaller image.", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+        return;
+      }
+  
       setNewProfileImage(file);
       setProfileImage(URL.createObjectURL(file));
     }
   };
-
+  
   return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-[600px]">
