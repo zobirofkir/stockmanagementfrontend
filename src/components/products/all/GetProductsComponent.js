@@ -58,7 +58,7 @@ const GetProductsComponent = () => {
     }
   };
 
-  const filteredProducts = productsGet
+  const filteredProducts = (productsGet || [])
     .filter((product) => product.title.toLowerCase().includes(searchQuery.toLowerCase()))
     .filter((product) => selectedCategory ? product.category.title === selectedCategory : true)
     .filter((product) => {
@@ -66,7 +66,7 @@ const GetProductsComponent = () => {
       const isAfterStartDate = startDate ? createdAt >= new Date(startDate) : true;
       const isBeforeEndDate = endDate ? createdAt <= new Date(endDate) : true;
       return isAfterStartDate && isBeforeEndDate;
-    });
+  });
 
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-16">
