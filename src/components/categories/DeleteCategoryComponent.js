@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css'
 const DeleteCategoryComponent = () => {
   const dispatch = useDispatch();
   const { isLoading, categories, error } = useSelector((state) => state.getCategories);
+  const {deleteCategory, deleteError} = useSelector((state) => state.deleteCategory);
 
   useEffect(() => {
     dispatch(GetCategoriesAction());
@@ -17,6 +18,16 @@ const DeleteCategoryComponent = () => {
     await dispatch(deleteCategoryAction(categoryId));
     dispatch(GetCategoriesAction());
   };
+
+  useEffect(() => {
+    if (deleteCategory) {
+      toast.success('Category deleted successfully');
+    } else {
+      if (deleteError) {
+        toast.error(deleteError);
+      }
+    }
+  } , [deleteCategory, deleteError]);
 
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
