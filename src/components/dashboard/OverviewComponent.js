@@ -1,14 +1,22 @@
+import GetCategoriesAction from '@/redux/actions/categories/GetCategoriesAction';
 import GetProductsAction from '@/redux/actions/products/GetProductsAction';
+import { GetUsersAction } from '@/redux/actions/users/GetUsersAction';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 const OverviewComponent = () => {
   const dispatch = useDispatch();
-  const { isLoading, productsGet, productsError } = useSelector(state => state.getProducts);
+  const { isLoading, productsGet } = useSelector(state => state.getProducts);
+  const { categories } = useSelector(state => state.getCategories);
+  const { users } = useSelector(state => state.getUsers);
+  useEffect(() => {
+    dispatch(GetProductsAction());
+    dispatch(GetCategoriesAction());
+    dispatch(GetUsersAction());
+  }, [dispatch]);
 
-  const [categories, setCategories] = useState(15);
+
   const [orders, setOrders] = useState(200);
-  const [pendingOrders, setPendingOrders] = useState(50);  // New state for pending orders
 
   useEffect(() => {
     dispatch(GetProductsAction());
@@ -16,9 +24,7 @@ const OverviewComponent = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setCategories(15); 
       setOrders(200); 
-      setPendingOrders(50);  // Update pending orders after loading
     }, 500); 
   }, []);
 
@@ -48,7 +54,9 @@ const OverviewComponent = () => {
             </svg>
             <div>
               <h2 className="text-xl font-medium text-gray-700">Categories</h2>
-              <p className="text-3xl font-bold text-gray-900">{categories} Categories</p>
+              <p className="text-3xl font-bold text-gray-900">
+                {(categories?.map(category => category.title) || []).length}
+              </p>
             </div>
           </div>
         </div>
@@ -73,8 +81,10 @@ const OverviewComponent = () => {
               <path fillRule="evenodd" d="M10 2a6 6 0 100 12 6 6 0 000-12zm0 10a4 4 0 110-8 4 4 0 010 8z" clipRule="evenodd" />
             </svg>
             <div>
-              <h2 className="text-xl font-medium text-gray-700">Pending Orders</h2>
-              <p className="text-3xl font-bold text-gray-900">{pendingOrders} Pending</p>
+              <h2 className="text-xl font-medium text-gray-700">Users</h2>
+              <p className="text-3xl font-bold text-gray-900">
+                {(users.map(user => user.name) || []).length}
+              </p>
             </div>
           </div>
         </div>
