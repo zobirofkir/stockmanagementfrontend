@@ -12,7 +12,7 @@ import {
   TrashIcon,
   HomeIcon,
   UserCircleIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightOnRectangleIcon 
 } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { LogoutAction } from '@/redux/actions/LogoutAction';
@@ -43,7 +43,7 @@ const SidebarComponent = () => {
           {isOpen ? '☰' : '❯'}
         </button>
 
-        <Link className={`text-xl font-medium text-black mb-6 ${!isOpen && 'hidden'} flex items-center gap-2 mt-20 md:mt-2 ml-2`} href='/dashboard'>
+        <Link className={`text-xl font-medium text-black mb-6 ${!isOpen && 'hidden'} flex items-center gap-2 mt-20 md:mt-2`} href='/dashboard'>
           <HomeIcon className="h-5 w-5 text-gray-600" />
           Dashboard
         </Link>
@@ -198,19 +198,32 @@ const SidebarComponent = () => {
                 <CreditCardIcon className="h-5 w-5 text-gray-600" />
                 <Link href="/dashboard/payments/all" className="text-gray-600 hover:text-gray-900">Get Payments</Link>
               </li>
+              <li className="flex items-center space-x-2">
+                <PencilIcon className="h-5 w-5 text-gray-600" />
+                <Link href="/dashboard/payments/update" className="text-gray-600 hover:text-gray-900">Update Payment</Link>
+              </li>
+              <li className="flex items-center space-x-2">
+                <TrashIcon className="h-5 w-5 text-gray-600" />
+                <Link href="/dashboard/payments/delete" className="text-gray-600 hover:text-gray-900">Delete Payment</Link>
+              </li>
             </ul>
           </li>
         </ul>
 
-        <div className="mt-10">
-          <Link href="#" onClick={handleLogout} className="flex items-center space-x-2 p-2 text-red-600 hover:bg-gray-200 hover:text-gray-900 transition-colors">
-            <ArrowRightOnRectangleIcon className="h-5 w-5" />
-            <span className={`${!isOpen ? 'hidden' : ''}`}>Logout</span>
+        {/* Profile and Logout Links at the bottom */}
+        <div className="mt-auto space-y-2 flex flex-col top-0 bottom-0 h-full gap-5">
+          <Link href="/dashboard/users/profile" className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors mt-10">
+            <UserCircleIcon className="h-5 w-5 text-gray-600" />
+            <span className={`${!isOpen ? 'hidden' : ''}`}>Profile</span>
           </Link>
+          <button className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors " onClick={handleLogout}>
+            <ArrowRightOnRectangleIcon className="h-5 w-5 text-gray-600" />
+            <span className={`${!isOpen ? 'hidden' : ''}`} >Logout</span>
+          </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default SidebarComponent;
