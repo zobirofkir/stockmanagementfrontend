@@ -7,19 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 function ChartComponent() {
-  const [users, setUsers] = useState(350);
-  const [categories, setCategories] = useState(15);
   const [orders, setOrders] = useState(200);
   const [productsLength, setProductsLength] = useState(0);
 
   const dispatch = useDispatch();
 
   const { isLoading, productsGet, productsError } = useSelector(state => state.getProducts);
+  const { users } = useSelector(state => state.getUsers);
+  const { categories } = useSelector(state => state.getCategories);
 
-  const [chartData1, setChartData1] = useState({});
-  const [chartData2, setChartData2] = useState({});
-  const [chartData3, setChartData3] = useState({});
-  const [chartData4, setChartData4] = useState({});
+  const [chartData1, setChartData1] = useState({ datasets: [] });
+  const [chartData2, setChartData2] = useState({ datasets: [] });
+  const [chartData3, setChartData3] = useState({ datasets: [] });
+  const [chartData4, setChartData4] = useState({ datasets: [] });
 
   useEffect(() => {
     if (productsGet) {
@@ -27,9 +27,7 @@ function ChartComponent() {
     }
 
     setTimeout(() => {
-      setUsers(350);  
-      setCategories(15); 
-      setOrders(200); 
+      setOrders(200);
 
       setChartData1({
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
@@ -51,7 +49,7 @@ function ChartComponent() {
         datasets: [
           {
             label: "Users",
-            data: [200, 250, 300, 350, 400, 450, 500],
+            data: [200, 250, 300, users?.length || 0, 400, 450, 500],
             borderColor: "#10B981",
             backgroundColor: "rgba(16, 185, 129, 0.2)",
             fill: true,
@@ -62,11 +60,11 @@ function ChartComponent() {
       });
 
       setChartData3({
-        labels: ["Category 1", "Category 2", "Category 3", "Category 4", "Category 5"],
+        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
         datasets: [
           {
-            label: "Products per Category",
-            data: [25, 40, 50, 30, 70],
+            label: "Categories",
+            data: [200, 250, 300, categories?.length || 0, 400, 450, 500],
             borderColor: "#F59E0B",
             backgroundColor: "rgba(245, 158, 11, 0.2)",
             fill: true,
@@ -75,13 +73,13 @@ function ChartComponent() {
           },
         ],
       });
-
+      
       setChartData4({
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
         datasets: [
           {
             label: "Orders",
-            data: [150, 200, 250, 300, 350, 400, 450],
+            data: [150, 200, 250, 300, 350, 400, orders],
             borderColor: "#8B5CF6",
             backgroundColor: "rgba(139, 92, 246, 0.2)",
             fill: true,
@@ -91,7 +89,7 @@ function ChartComponent() {
         ],
       });
     }, 1000);
-  }, [productsGet, productsLength]);
+  }, [productsGet]);
 
   const chartOptions = {
     responsive: true,
@@ -147,7 +145,7 @@ function ChartComponent() {
 
         {/* Products vs Categories (Line Chart 3) */}
         <div className="bg-white shadow-lg rounded-lg p-6 border border-yellow-200 transform transition duration-500 hover:scale-105">
-          <h2 className="text-xl font-medium text-gray-600 mb-4">Products per Category</h2>
+          <h2 className="text-xl font-medium text-gray-600 mb-4">Categories</h2>
           <div className="h-64 w-full">
             {chartData3.datasets && <Line data={chartData3} options={chartOptions} />}
           </div>

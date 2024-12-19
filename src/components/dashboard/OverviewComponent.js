@@ -69,7 +69,7 @@ const OverviewComponent = () => {
             </svg>
             <div>
               <h2 className="text-xl font-medium text-gray-700">Orders</h2>
-              <p className="text-3xl font-bold text-gray-900">{orders} Orders</p>
+              <p className="text-3xl font-bold text-gray-900">{orders}</p>
             </div>
           </div>
         </div>
