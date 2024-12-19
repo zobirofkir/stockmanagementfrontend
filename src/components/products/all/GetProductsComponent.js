@@ -186,7 +186,7 @@ const GetProductsComponent = () => {
       {/* Modal for Viewing Images */}
       {isModalOpen && selectedProduct && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-          <div className="relative p-8 rounded-lg max-w-4xl w-full h-full max-h-full overflow-hidden bg-white shadow-xl">
+          <div className="relative p-8 rounded-lg max-w-4xl w-full h-full max-h-full overflow-hidden bg-transparent shadow-xl">
             <button
               onClick={closeModal}
               className="absolute top-4 right-4 text-white text-3xl font-bold hover:text-gray-400 transition duration-300"
