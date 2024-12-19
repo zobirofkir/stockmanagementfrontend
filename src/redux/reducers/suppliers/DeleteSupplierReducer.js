@@ -1,3 +1,5 @@
+import DeleteSupplierType from "@/redux/types/suppliers/DeleteSupplierType";
+
 const initialState = {
     isDeleting: false,
     supplierDelete: null,

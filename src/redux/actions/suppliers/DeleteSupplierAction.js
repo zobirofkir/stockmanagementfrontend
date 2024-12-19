@@ -1,10 +1,9 @@
 import DeleteSupplierType from "@/redux/types/suppliers/DeleteSupplierType";
-import DeleteSupplierService  from "@/redux/services/suppliers/DeleteSupplierService";
+import DeleteSupplierService from "@/redux/services/suppliers/DeleteSupplierService";
 
 const deleteSupplierRequest = () => {
     return {
         type: DeleteSupplierType.DELETE_SUPPLIER_REQUEST,
-        payload: null,
     };
 };
 
@@ -26,9 +25,10 @@ const DeleteSupplierAction = (id) => async (dispatch) => {
     dispatch(deleteSupplierRequest());
     try {
         const response = await DeleteSupplierService(id);
+        console.log(response.data.data);
 
         if (response?.data?.data) {
-            dispatch(deleteSupplierSuccess(response?.data?.data));
+            dispatch(deleteSupplierSuccess(response.data.data));
         } else {
             throw new Error("Invalid response from server.");
         }

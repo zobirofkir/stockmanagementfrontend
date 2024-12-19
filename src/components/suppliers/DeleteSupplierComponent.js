@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import DeleteSupplierAction from '@/redux/actions/suppliers/DeleteSupplierAction';
-import GetSuppliersAction from '@/redux/actions/suppliers/GetSuppliersAction';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import DeleteSupplierAction from "@/redux/actions/suppliers/DeleteSupplierAction";
+import GetSuppliersAction from "@/redux/actions/suppliers/GetSuppliersAction";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,26 +16,39 @@ const DeleteSupplierComponent = () => {
 
   const handleDeleteSubmit = async (supplier) => {
     if (isDeleting) return;
-    await dispatch(DeleteSupplierAction(supplier.id)); 
-    
-    setSelectedSupplier(null);
 
-    dispatch(GetSuppliersAction());
+    setSelectedSupplier(supplier);
+
+    try {
+      await dispatch(DeleteSupplierAction(supplier.id));
+      dispatch(GetSuppliersAction());
+    } catch (error) {
+      toast.error(`Error: ${error.message}`, { autoClose: 1000 });
+    } finally {
+      setSelectedSupplier(null); 
+    }
   };
-
 
   useEffect(() => {
     dispatch(GetSuppliersAction());
   }, [dispatch]);
 
-  useEffect(() => {
+  const handleDeleteSuccess = () => {
     if (supplierDelete) {
-      toast.success(supplierDelete.message, { autoClose: 1000 });
-      dispatch(GetSuppliersAction());
-    } else if (supplierError) {
-      toast.error(`Error: ${supplierError}`, { autoClose: 1000 });
+      toast.success("Supplier deleted successfully.", { autoClose: 1000 });
     }
-  }, [supplierDelete, supplierError, dispatch]);
+  };
+
+  const handleDeleteError = () => {
+    if (supplierError) {
+      toast.error(supplierError, { autoClose: 1000 });
+    }
+  };
+
+  useEffect(() => {
+    handleDeleteError();
+    handleDeleteSuccess();
+  }, [supplierError, supplierDelete]);
 
   return (
     <div className="container mx-auto p-4 bg-white rounded-lg shadow-lg mt-10">
@@ -51,11 +64,11 @@ const DeleteSupplierComponent = () => {
             <p className="text-sm text-gray-600 mb-2">Phone: {supplier.phone}</p>
             <p className="text-sm text-gray-500 mb-4">Address: {supplier.address}</p>
             <button
-              onClick={() => handleDeleteSubmit(supplier)} 
+              onClick={() => handleDeleteSubmit(supplier)}
               className="bg-red-500 font-bold text-white px-4 py-2 rounded hover:bg-red-600"
-              disabled={isDeleting}
+              disabled={isDeleting && selectedSupplier?.id === supplier.id}
             >
-              {isDeleting ? "Deleting..." : "Delete"}
+              {isDeleting && selectedSupplier?.id === supplier.id ? "Deleting..." : "Delete"}
             </button>
           </div>
         ))}
@@ -84,9 +97,9 @@ const DeleteSupplierComponent = () => {
                   <button
                     onClick={() => handleDeleteSubmit(supplier)}
                     className="bg-red-500 font-bold text-white px-4 py-2 rounded hover:bg-red-600"
-                    disabled={isDeleting} 
+                    disabled={isDeleting && selectedSupplier?.id === supplier.id}
                   >
-                    {isDeleting ? "Deleting..." : "Delete"}
+                    {isDeleting && selectedSupplier?.id === supplier.id ? "Deleting..." : "Delete"}
                   </button>
                 </td>
               </tr>
