@@ -90,7 +90,7 @@ const GetProductsComponent = () => {
           <div className="flex md:flex-row flex-col gap-4 items-center w-full sm:w-auto">
             <select
               id="category"
-              className="px-4 py-2 border border-gray-300 rounded-lg"
+              className="px-4 py-1 border border-gray-300 rounded-lg"
               onChange={(e) => setSelectedCategory(e.target.value)}
               value={selectedCategory}
             >
@@ -102,7 +102,7 @@ const GetProductsComponent = () => {
               ))}
             </select>
             <button
-              className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 mt-2 sm:mt-0"
+              className="px-4 py-1 bg-gray-500 text-white rounded-md hover:bg-gray-600 mt-2 sm:mt-0"
               onClick={() => setSelectedCategory('')}
             >
               Reset Filter
