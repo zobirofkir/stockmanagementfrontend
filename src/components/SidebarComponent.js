@@ -12,7 +12,8 @@ import {
   TrashIcon,
   HomeIcon,
   UserCircleIcon,
-  ArrowRightOnRectangleIcon 
+  ArrowRightOnRectangleIcon, 
+  ShoppingCartIcon
 } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { LogoutAction } from '@/redux/actions/LogoutAction';
@@ -208,6 +209,39 @@ const SidebarComponent = () => {
               </li>
             </ul>
           </li>
+
+          {/* Stocks Dropdown */}
+          <li>
+            <Link
+              href="#"
+              onClick={() => toggleDropdown('stocks')}  
+              className="flex items-center space-x-2 p-2 rounded-md hover:bg-gray-200 hover:text-gray-900 transition-colors"
+            >
+              <ShoppingCartIcon className="h-5 w-5 text-gray-600" /> 
+              <span className={`${!isOpen ? 'hidden' : ''}`}>Stocks</span>  
+            </Link>
+            <ul
+              className={`space-y-2 pl-8 transition-all duration-300 ease-in-out overflow-hidden ${dropdown === 'stocks' ? 'max-h-96' : 'max-h-0'}`}  
+            >
+              <li className="flex items-center space-x-2">
+                <PlusIcon className="h-5 w-5 text-gray-600" />
+                <Link href="/dashboard/stocks/create" className="text-gray-600 hover:text-gray-900">Create Stock</Link>
+              </li>
+              <li className="flex items-center space-x-2">
+                <ShoppingCartIcon className="h-5 w-5 text-gray-600" />
+                <Link href="/dashboard/stocks/all" className="text-gray-600 hover:text-gray-900">Get Stocks</Link>
+              </li>
+              <li className="flex items-center space-x-2">
+                <PencilIcon className="h-5 w-5 text-gray-600" />
+                <Link href="/dashboard/stocks/update" className="text-gray-600 hover:text-gray-900">Update Stock</Link>
+              </li>
+              <li className="flex items-center space-x-2">
+                <TrashIcon className="h-5 w-5 text-gray-600" />
+                <Link href="/dashboard/stocks/delete" className="text-gray-600 hover:text-gray-900">Delete Stock</Link>
+              </li>
+            </ul>
+          </li>
+
         </ul>
 
         {/* Profile and Logout Links at the bottom */}
