@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const GetCategoriesComponent = () => {
   const dispatch = useDispatch();
-  const { isLoading, categories, error } = useSelector((state) => state.getCategories);
+  const { isLoading, categories = [], error } = useSelector((state) => state.getCategories);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -15,11 +15,11 @@ const GetCategoriesComponent = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredCategories = categories?.filter((category) => 
+  const filteredCategories = (categories || []).filter((category) => 
     category.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     category.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  
   return (
     <div className="container mx-auto p-8 bg-white rounded-lg shadow-lg mt-20">
       <div className="mb-6">
@@ -52,7 +52,7 @@ const GetCategoriesComponent = () => {
               <tr>
                 <td colSpan="3" className="p-4 text-center text-red-600">{error}</td>
               </tr>
-            ) : filteredCategories?.length === 0 ? (
+            ) : filteredCategories.length === 0 ? (
               <tr>
                 <td colSpan="3" className="p-4 text-center text-gray-600">No categories found.</td>
               </tr>
@@ -78,7 +78,7 @@ const GetCategoriesComponent = () => {
             <div className="text-center text-gray-600">Loading...</div>
           ) : error ? (
             <div className="text-center text-red-600">{error}</div>
-          ) : filteredCategories?.length === 0 ? (
+          ) : filteredCategories.length === 0 ? (
             <div className="text-center text-gray-600">No categories found.</div>
           ) : (
             filteredCategories.map((category) => (
