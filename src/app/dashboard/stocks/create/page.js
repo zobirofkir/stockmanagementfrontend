@@ -2,13 +2,15 @@
 
 import React from 'react'
 import CreateStockComponent from '@/components/stocks/CreateStockComponent';
+import ProtectedRoute from '@/protected/protectedRoute';
 
 const Page = () => {
-
   return (
-    <div>
+    <ProtectedRoute>
+      <div>
         <CreateStockComponent />
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 };
 

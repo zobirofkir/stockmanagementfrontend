@@ -20,6 +20,7 @@ import GetProductsReducer from "../reducers/products/GetProductsReducer";
 import UpdateProductReducer from "../reducers/products/UpdateProductReducer";
 import DeleteProductAction from "../actions/products/DeleteProductAction";
 import DeleteSupplierReducer from "../reducers/suppliers/DeleteSupplierReducer";
+import CreateStockAction from "../actions/stocks/CreateStockAction";
 
 const rootReducer = combineReducers({
     login: LoginReducer,
@@ -57,6 +58,11 @@ const rootReducer = combineReducers({
     getProducts : GetProductsReducer,
     updateProduct : UpdateProductReducer,
     deleteProduct : DeleteProductAction,
+
+    /**
+     * Stocks
+     */
+    createStock : CreateStockAction,
 });
 
 

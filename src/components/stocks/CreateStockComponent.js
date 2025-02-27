@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import ModalComponent from '../modal/ModalComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import CreateStockAction from '@/redux/actions/stocks/CreateStockAction';
 
 const products = [
   { id: '1', name: 'Product A' },
@@ -24,6 +26,9 @@ const CreateStockComponent = () => {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
 
+  const dispatch = useDispatch();
+  const { isLoading, stockSuccess, stockError } = useSelector((state) => state.createStock);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -34,38 +39,22 @@ const CreateStockComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(CreateStockAction(formData));
   };
 
-  const openProductModal = () => {
-    setIsProductModalOpen(true);
-  };
+  const openProductModal = () => setIsProductModalOpen(true);
+  const closeProductModal = () => setIsProductModalOpen(false);
 
-  const closeProductModal = () => {
-    setIsProductModalOpen(false);
-  };
-
-  const openSupplierModal = () => {
-    setIsSupplierModalOpen(true);
-  };
-
-  const closeSupplierModal = () => {
-    setIsSupplierModalOpen(false);
-  };
+  const openSupplierModal = () => setIsSupplierModalOpen(true);
+  const closeSupplierModal = () => setIsSupplierModalOpen(false);
 
   const selectProduct = (product) => {
-    setFormData({
-      ...formData,
-      product_name: product.name
-    });
+    setFormData({ ...formData, product_name: product.name });
     closeProductModal();
   };
 
   const selectSupplier = (supplier) => {
-    setFormData({
-      ...formData,
-      supplier_name: supplier.name
-    });
+    setFormData({ ...formData, supplier_name: supplier.name });
     closeSupplierModal();
   };
 
@@ -76,6 +65,10 @@ const CreateStockComponent = () => {
           <h2 className="text-3xl font-bold text-gray-900">Create Stock Entry</h2>
           <p className="text-gray-600 mt-2">Enter the details to create a new stock entry.</p>
         </div>
+
+        {isLoading && <p className="text-blue-600">Loading...</p>}
+        {stockSuccess && <p className="text-green-600">Stock entry created successfully!</p>}
+        {stockError && <p className="text-red-600">Error: {stockError}</p>}
 
         <form onSubmit={handleSubmit}>
           <div className="space-y-6">
@@ -153,8 +146,9 @@ const CreateStockComponent = () => {
             <button
               type="submit"
               className="w-full p-4 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              disabled={isLoading}
             >
-              Create Stock Entry
+              {isLoading ? 'Creating...' : 'Create Stock Entry'}
             </button>
           </div>
         </form>
@@ -177,10 +171,6 @@ const CreateStockComponent = () => {
             </li>
           ))}
         </ul>
-
-        <button className='text-left mt-4 p-3 border border-gray-300 rounded-md hover:bg-gray-500 hover:text-white bg-gray-600 text-center py-2 px-4 text-white font-bold'>
-            Select
-        </button>
       </ModalComponent>
 
       <ModalComponent
@@ -200,10 +190,6 @@ const CreateStockComponent = () => {
             </li>
           ))}
         </ul>
-
-        <button className='text-left p-3 border border-gray-300 rounded-md hover:bg-gray-500 hover:text-white bg-gray-600 text-center py-2 px-4 text-white font-bold'>
-            Select
-        </button>
       </ModalComponent>
     </div>
   );
